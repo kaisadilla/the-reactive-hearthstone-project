@@ -1,0 +1,426 @@
+/******  PRIMARY COLOR  ******/
+$primary-color: #492609;
+$primary-color-light1: #694429;
+$primary-color-light2: #8a6449;
+$primary-color-light3: #ac856c;
+$primary-color-light4: #cfa890;
+$primary-color-light5: #f2cdb6;
+$primary-color-dark1: #341409;
+$primary-color-dark2: #1e0000;
+/******  SECONDARY COLOR  ******/
+$secondary-color: #ffb00d;
+$secondary-color-light1: #facd5f;
+$secondary-color-light2: #fada7e;
+$secondary-color-light3: #fae69d;
+$secondary-color-light4: #fffbdb;
+$secondary-color-dark1: #e18921;
+$secondary-color-dark2: #bd6628;
+$secondary-color-dark3: #954727;
+$secondary-color-dark4: #6a2e22;
+$secondary-color-text: #3f1811;
+/******  GRAY  ******/
+$gray1: #c3c3c3;
+$gray2: #a5a5a5;
+$gray3: #878787;
+$gray4: #787878;
+$gray5: #5a5a5a;
+$gray6: #3c3c3c;
+/******  BACKGROUND COLORS  ******/
+$background-color-bright: #e1e1e1;
+$background-color-bright2: #eaeaea;
+/******  TEXT COLORS  ******/
+$text-color-bright: #e1e1e1;
+$text-color-dark: #1e1e1e;
+/******  SPECIAL COLORS  ******/
+$rarity-basic: #247222;
+$rarity-common: #858585;
+$rarity-rare: #286097;
+$rarity-epic: #674196;
+$rarity-legendary: #99631d;
+
+$font-std: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-hearthstone: "Belwe Std Bold", sans-serif;
+
+$light: 200;
+$regular: 400;
+$semibold: 600;
+$bold: 700;
+$black: 800;
+
+$navbar-height: 50px;
+
+@mixin background-size ($bg-size) {
+    -webkit-background-size: $bg-size;
+    -moz-background-size: $bg-size;
+    -o-background-size: $bg-size;
+    background-size: $bg-size;
+}
+
+@mixin control-style ($style) {
+    -webkit-appearance: $style;
+    -moz-appearance: $style;
+    appearance: $style;
+}
+
+/* renders the text of this element as mana (Belwe Std Bold font, white color with black outline) */
+@mixin manafy () {
+    font-family: $font-hearthstone;
+    color: white;
+    text-shadow: -1px -1px 0 black,
+                  1px -1px 0 black,
+                 -1px  1px 0 black,
+                  1px  1px 0 black;
+}
+
+/* renders the text as white with a black outline */
+@mixin cardfy () {
+    font-weight: $semibold;
+    color: white;
+    text-shadow: -1px -1px 0 black,
+                  1px -1px 0 black,
+                 -1px  1px 0 black,
+                  1px  1px 0 black;
+}
+
+@font-face {
+    font-family: "Belwe Std Bold";
+    src: url("fonts/belwe-std-bold.otf") format("opentype");
+}
+
+:root {
+    font-family: $font-std;
+}
+
+b {
+    font-weight: $semibold;
+}
+
+body {
+    background-color: $background-color-bright;
+    color: $text-color-dark;
+    margin: 0;
+}
+
+/* the content section must fit the entire screen except for the part covered by the navbar */
+.page-content {
+    margin-top: $navbar-height;
+    margin-left: 0px;
+    min-height: calc(100vh - #{$navbar-height});
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: $primary-color;
+    width: 100%;
+    height: $navbar-height;
+    padding-right: 100px;
+    color: $secondary-color-light4;
+    z-index: 10;
+
+    .nav-item {
+        font-weight: $semibold;
+        line-height: 35pt;
+        color: $secondary-color-light4;
+        text-decoration: none;
+
+        &.title {
+            float: left;
+            font-size: 18pt;
+            padding-left: 130px;
+        }
+        &:not(.title) {
+            float: right;
+            padding-right: 20px;
+        }
+    }
+}
+
+main {
+    margin-top: 50px;
+    height: calc(100vh - #{$navbar-height});
+    padding: 10px 20px;
+
+    &.left-aside {
+        margin-left: 300px;
+    }
+    
+    &.right-aside {
+        margin-right: 300px;
+    }
+}
+
+.aside-tools {
+    background-color: $secondary-color;
+
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    overflow-x: hidden;
+
+    height: calc(100% - 50px);
+    width: 300px;
+
+    /* make scrollbar smaller again */
+    scrollbar-width: thin;
+    &::-webkit-scrollbar { 
+        display: none; 
+    }
+    
+    a {
+        text-decoration: none;
+        color: $text-color-dark;
+    }
+
+    > span {
+        display: block;
+        width: 100%;
+        //text-align: left;
+        
+        a {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: $text-color-dark;
+        }
+
+        &.title {
+            font-size: 14pt;
+            font-weight: $semibold;
+            text-align: center;
+            text-transform: uppercase;
+            height: 40px;
+            padding-top: 15px;
+        }
+
+        &.section {
+            background-color: $secondary-color-dark1;
+            //padding-left: 10px;
+            padding: 3px 0 3px 10px;
+            text-transform: uppercase;
+            font-weight: $semibold;
+            color: $secondary-color-text;
+        }
+
+        &.option {
+            padding: 5px 0 5px 20px;
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $secondary-color-dark1;
+            }
+
+            &.chosen {
+                background-color: $primary-color;
+                color: $text-color-bright;
+                border-bottom: 1px solid $primary-color-dark2;
+
+                &:hover {
+                    background-color: $primary-color-light1;
+                }
+            }
+        }
+        &.option:hover {
+            cursor: pointer;
+            background-color: $secondary-color-light1;
+        }
+    }
+
+    > div {
+        &.legend-info {
+            width: 100%;
+            height: 22px;
+            padding: 5px 0 5px 0;
+
+            > .legend {
+                float: left;
+                padding-left: 20px;
+            }
+
+            > .value {
+                float: right;
+                padding-right: 20px;
+                text-align: right;
+                font-weight: $semibold;
+                color: $primary-color;
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $secondary-color-dark1;
+            }
+        }
+
+        &.legend-info-icon {
+            width: 100%;
+            height: 32px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+
+            > .legend {
+                float: left;
+                padding-left: 20px;
+                line-height: 27px;
+            }
+
+            > .value {
+                float: right;
+                padding-right: 16px;
+
+                > span {
+                    float: left;
+                    text-align: right;
+                    font-weight: $semibold;
+                    color: $primary-color;
+                    padding-right: 8px;
+                    line-height: 27px;
+                }
+
+                > img {
+                    display: block;
+                    float: right;
+                }
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $secondary-color-dark1;
+            }
+        }
+
+        &.info {
+            width: 100%;
+            text-align: center;
+            padding: 5px 0 5px 0;
+            > span {
+                display: inline-block;
+                margin-left: 20px;
+                margin-right: 20px;
+                color: $primary-color;
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid $secondary-color-dark1;
+            }
+
+            &.flavor {
+                font-style: italic;
+            }
+        }
+
+        &.class-buttons, &.cost-buttons {
+            text-align: center;
+            margin: 10px 30px 10px 30px;
+
+            > :not(.chosen) {
+
+                opacity: 60%;
+            }
+            > * {
+                padding-right: 5px;
+            }
+        }
+    
+        &.card-showcase {
+            width: 100%;
+            height: 375px;
+            img {
+                display: block;
+                margin: auto;
+            }
+        }
+    }
+}
+
+.class-button {
+    width: 32px;
+
+    &:focus, &:active {
+        outline: none;
+        border: none;
+        -moz-outline-style: none;
+    }
+}
+
+.mana-crystal {
+    display: inline-block;
+    background-image: url("/src/img/mana-crystal.png");
+    width: 32px;
+    height: 32px;
+    font-size: 16pt;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    @include background-size(cover);
+    @include manafy();
+}
+
+
+.search-card {
+    $search-width: 500px;
+    $padding-left: 35px;
+
+    width: $search-width;
+    position: relative;
+    display: inline-block;
+
+    > input {
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid $primary-color;
+        font-size: 11pt;
+        padding: 7px 0px 7px $padding-left;
+        width: $search-width - $padding-left;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    > span {
+        color: $primary-color;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        display: block;
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+        pointer-events: none;
+    }
+}
+
+.filter-exp {
+    display: inline-block;
+    padding-left: 20px;
+
+    > select {
+        width: 250px;
+        background-color: transparent;
+        font-weight: $semibold;
+        color: $primary-color;
+        border: 1px solid $primary-color;
+        border-radius: 5px;
+        padding: 7px 0px 7px 5px;
+        //@include control-style(none);
+        
+        option:first-child {
+            color: $gray3;
+        }
+    }
+}
+
+/*body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+*/
