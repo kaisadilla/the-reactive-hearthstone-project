@@ -12,11 +12,11 @@ class CardNavBar extends React.Component {
         return (
             <div className="card-filters">
                 <div className="search-card">
-                    <input type="text" id="search-query" placeholder="Search: Arcane Intellect…" onInput={void(0)}/>
+                    <input type="text" id="search-query" placeholder="Search: Arcane Intellect…" onInput={evt => this.props.setParentState({nameQuery: evt.target.value})}/>
                     <span className="material-icons">search</span>
                 </div>
                 <div className="filter-exp">
-                    <select id="exp-menu" onChange={evt => this.props.displayExpansion(evt.target.value)} defaultValue="default">
+                    <select id="exp-menu" onChange={evt => this.props.setParentState({chosenExp: evt.target.value})} defaultValue="default">
                         <option value="null"> -- Choose an expansion -- </option>
                         {expansions}
                     </select>

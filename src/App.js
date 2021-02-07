@@ -5,6 +5,7 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 
 import CardList from "./Views/CardList";
+import DeckList from "./Views/DeckList";
 
 import NavBar from "./Components/NavBar";
 
@@ -55,6 +56,7 @@ class App extends React.Component {
                         <div className="page-content">
                             <Switch>
                                 <Route path="/cards" component={CardList} />
+                                <Route path="/decks" component={DeckList} />
                             </Switch>
                         </div>
                     </Router>

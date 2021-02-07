@@ -48,6 +48,11 @@ body {
   color: #fffbdb;
   text-decoration: none;
 }
+.navbar .nav-item:focus, .navbar .nav-item:active {
+  outline: none;
+  border: none;
+  -moz-outline-style: none;
+}
 .navbar .nav-item.title {
   float: left;
   font-size: 18pt;
@@ -201,13 +206,15 @@ main.right-aside {
 .aside-tools > div.class-buttons, .aside-tools > div.cost-buttons {
   text-align: center;
   margin: 10px 30px 10px 30px;
-  /* using padding-right: 5px looks a bit off. */
 }
-.aside-tools > div.class-buttons > :not(.chosen), .aside-tools > div.cost-buttons > :not(.chosen) {
+.aside-tools > div.class-buttons > .button, .aside-tools > div.cost-buttons > .button {
+  margin: 0 2px 0 2px;
+}
+.aside-tools > div.class-buttons > .button:hover, .aside-tools > div.cost-buttons > .button:hover {
+  cursor: pointer;
+}
+.aside-tools > div.class-buttons > .button:not(.chosen), .aside-tools > div.cost-buttons > .button:not(.chosen) {
   opacity: 60%;
-}
-.aside-tools > div.class-buttons *::after, .aside-tools > div.cost-buttons *::after {
-  content: " ";
 }
 .aside-tools > div.card-showcase {
   width: 100%;
@@ -218,9 +225,6 @@ main.right-aside {
   margin: auto;
 }
 
-.class-button {
-  width: 32px;
-}
 .class-button:focus, .class-button:active {
   outline: none;
   border: none;
@@ -245,23 +249,27 @@ main.right-aside {
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
-.search-card {
-  width: 500px;
-  position: relative;
-  display: inline-block;
+.card-filters {
+  display: flex;
 }
-.search-card > input {
+.card-filters .search-card {
+  width: calc(100% - 250px);
+  max-width: 500px;
+  position: relative;
+}
+.card-filters .search-card > input {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #492609;
   font-size: 11pt;
   padding: 7px 0px 7px 35px;
-  width: 465px;
+  width: calc(100% - 35px);
+  max-width: 500px;
 }
-.search-card > input:focus {
+.card-filters .search-card > input:focus {
   outline: none;
 }
-.search-card > span {
+.card-filters .search-card > span {
   color: #492609;
   position: absolute;
   top: 0;
@@ -274,12 +282,10 @@ main.right-aside {
   text-align: center;
   pointer-events: none;
 }
-
-.filter-exp {
-  display: inline-block;
+.card-filters .filter-exp {
   padding-left: 20px;
 }
-.filter-exp > select {
+.card-filters .filter-exp > select {
   width: 250px;
   background-color: transparent;
   font-weight: 600;
@@ -288,7 +294,7 @@ main.right-aside {
   border-radius: 5px;
   padding: 7px 0px 7px 5px;
 }
-.filter-exp > select option:first-child {
+.card-filters .filter-exp > select option:first-child {
   color: #878787;
 }
 
@@ -309,6 +315,311 @@ main.right-aside {
 }
 .card-showcase.hero-pos {
   object-position: 0% 65%;
+}
+
+.card-token {
+  display: flex;
+  height: 33px;
+}
+.card-token:nth-child(even) {
+  background-color: #eaeaea;
+}
+.card-token .card-cost {
+  width: 32px;
+  height: 32px;
+  font-size: 16pt;
+  text-align: center;
+  line-height: 31px;
+  font-family: "Belwe Std Bold", sans-serif;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  border: 1px solid black;
+}
+.card-token .card-cost.rarity-free {
+  background-color: #247222;
+}
+.card-token .card-cost.rarity-common {
+  background-color: #858585;
+}
+.card-token .card-cost.rarity-rare {
+  background-color: #286097;
+}
+.card-token .card-cost.rarity-epic {
+  background-color: #674196;
+}
+.card-token .card-cost.rarity-legendary {
+  background-color: #99631d;
+}
+.card-token .card-name {
+  height: 32px;
+  width: 200px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.card-token .card-name .tile {
+  display: block;
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  object-fit: cover;
+}
+.card-token .card-name .tile-fade-out {
+  position: absolute;
+  width: 200px;
+  height: 32px;
+  background: linear-gradient(120deg, #333, #333 35%, transparent 70%, transparent);
+}
+.card-token .card-name .caption {
+  display: block;
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  font-weight: 600;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  line-height: 31px;
+  padding-left: 10px;
+}
+.card-token .card-stats {
+  display: flex;
+  height: 32px;
+  width: 66px;
+}
+.card-token .card-stats .card-atk, .card-token .card-stats .card-hp, .card-token .card-stats .card-void {
+  width: 32px;
+  height: 32px;
+  font-family: "Belwe Std Bold", sans-serif;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  line-height: 31px;
+  text-align: center;
+  font-size: 16pt;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.card-token .card-stats .card-atk {
+  background-color: #ffbb00;
+}
+.card-token .card-stats .card-hp {
+  background-color: #a71300;
+}
+.card-token .card-stats .card-void {
+  background-color: transparent;
+}
+.card-token .card-exp {
+  height: 33px;
+  width: 128px;
+  border-right: 1px solid #c3c3c3;
+  border-bottom: 1px solid #c3c3c3;
+  line-height: 31px;
+  text-align: center;
+  font-weight: 600;
+}
+.card-token .card-class {
+  height: 33px;
+  width: 160px;
+  border-right: 1px solid #c3c3c3;
+  border-bottom: 1px solid #c3c3c3;
+}
+.card-token .card-class .class-display-icon {
+  float: left;
+}
+.card-token .card-class .class-label {
+  display: inline-block;
+  height: 33px;
+  width: 128px;
+  line-height: 31px;
+  text-align: center;
+  font-weight: 600;
+}
+.card-token .card-desc {
+  height: 33px;
+  padding-left: 12px;
+  width: calc(100% - 32px - 200px - 128px - 160px - 66px - 24px);
+  line-height: 31px;
+  border-bottom: 1px solid #c3c3c3;
+}
+.card-token .card-desc span {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.card-token-reduced {
+  display: flex;
+  height: 33px;
+  width: 235px;
+}
+.card-token-reduced:nth-child(even) {
+  background-color: #eaeaea;
+}
+.card-token-reduced .card-cost {
+  width: 32px;
+  height: 32px;
+  font-size: 16pt;
+  text-align: center;
+  line-height: 31px;
+  font-family: "Belwe Std Bold", sans-serif;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  border: 1px solid black;
+}
+.card-token-reduced .card-cost.rarity-free {
+  background-color: #247222;
+}
+.card-token-reduced .card-cost.rarity-common {
+  background-color: #858585;
+}
+.card-token-reduced .card-cost.rarity-rare {
+  background-color: #286097;
+}
+.card-token-reduced .card-cost.rarity-epic {
+  background-color: #674196;
+}
+.card-token-reduced .card-cost.rarity-legendary {
+  background-color: #99631d;
+}
+.card-token-reduced .card-name {
+  height: 32px;
+  width: 200px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.card-token-reduced .card-name .tile {
+  display: block;
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  object-fit: cover;
+}
+.card-token-reduced .card-name .tile-fade-out {
+  position: absolute;
+  width: 200px;
+  height: 32px;
+  background: linear-gradient(120deg, #333, #333 35%, transparent 70%, transparent);
+}
+.card-token-reduced .card-name .caption {
+  display: block;
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  font-weight: 600;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  line-height: 31px;
+  padding-left: 10px;
+}
+.card-token-reduced .card-amount {
+  position: absolute;
+  left: 234px;
+  width: 32px;
+  height: 32px;
+  font-size: 16pt;
+  text-align: center;
+  line-height: 31px;
+  font-family: "Belwe Std Bold", sans-serif;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  color: #ffb00d;
+  border: 1px solid black;
+  background-color: #492609;
+  z-index: 2;
+}
+
+.deck-list {
+  max-width: 800px;
+}
+.deck-list .deck-token {
+  border: 5px solid #492609;
+  outline: 1px solid #1e0000;
+  width: calc(100% - 5px - 6px);
+  max-width: 800px;
+  height: 60px;
+  display: flex;
+}
+.deck-list .deck-token .deck-name {
+  width: calc(100% - 5px - 1px);
+  max-width: 800px;
+  height: 60px;
+}
+.deck-list .deck-token .deck-name .tile {
+  display: block;
+  margin-right: 0;
+  float: right;
+  height: 60px;
+  width: 300px;
+  max-width: 800px;
+  object-fit: cover;
+  object-position: 0 15%;
+  border-right: 5px solid #492609;
+}
+.deck-list .deck-token .deck-name .tile-fade-out {
+  position: absolute;
+  width: calc(100% - 350px - 5px - 1px);
+  max-width: 800px;
+  height: 60px;
+  background: linear-gradient(120deg, #333, #333 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.DEMONHUNTER {
+  background: linear-gradient(105deg, #25896e, #25896e 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.DRUID {
+  background: linear-gradient(105deg, #573109, #573109 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.HUNTER {
+  background: linear-gradient(105deg, #1d7a00, #1d7a00 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.MAGE {
+  background: linear-gradient(105deg, #0c83af, #0c83af 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.PALADIN {
+  background: linear-gradient(105deg, #b00550, #b00550 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.PRIEST {
+  background: linear-gradient(105deg, #b0b0b0, #b0b0b0 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.ROGUE {
+  background: linear-gradient(105deg, #f2d800, #f2d800 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.SHAMAN {
+  background: linear-gradient(105deg, #00386e, #00386e 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.WARLOCK {
+  background: linear-gradient(105deg, #5318a3, #5318a3 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .tile-fade-out.WARRIOR {
+  background: linear-gradient(105deg, #8f0000, #8f0000 55%, transparent 70%, transparent);
+}
+.deck-list .deck-token .deck-name .caption {
+  display: block;
+  position: absolute;
+  height: inherit;
+  width: auto;
+  font-family: "Belwe Std Bold", sans-serif;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  font-size: 24pt;
+  line-height: 59px;
+  padding-left: 35px;
+}
+.deck-list .deck-token .deck-remove {
+  background-color: #ca352a;
+  width: 60px;
+  height: 60px;
+}
+.deck-list .deck-token .deck-remove span {
+  padding: 8px;
+  font-size: 32pt;
+  color: #690801;
+}
+
+.class-icon {
+  width: 32px;
 }
 
 /*# sourceMappingURL=index.css.map */

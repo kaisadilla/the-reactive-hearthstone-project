@@ -125,6 +125,12 @@ body {
         color: $secondary-color-light4;
         text-decoration: none;
 
+        &:focus, &:active {
+            outline: none;
+            border: none;
+            -moz-outline-style: none;
+        }
+
         &.title {
             float: left;
             font-size: 18pt;
@@ -311,13 +317,14 @@ main {
             text-align: center;
             margin: 10px 30px 10px 30px;
 
-            > :not(.chosen) {
-
-                opacity: 60%;
-            }
-            /* using padding-right: 5px looks a bit off. */
-            *::after {
-                content: " ";
+            > .button {
+                &:hover {
+                    cursor: pointer;
+                }
+                &:not(.chosen) {
+                    opacity: 60%;
+                }
+                margin: 0 2px 0 2px;
             }
         }
     
@@ -333,8 +340,6 @@ main {
 }
 
 .class-button {
-    width: 32px;
-
     &:focus, &:active {
         outline: none;
         border: none;
@@ -355,59 +360,63 @@ main {
     @include manafy();
 }
 
+.card-filters {
+    $search-max-width: 500px;
+    $exp-menu-width: 250px;
+    display: flex;
 
-.search-card {
-    $search-width: 500px;
-    $padding-left: 35px;
-
-    width: $search-width;
-    position: relative;
-    display: inline-block;
-
-    > input {
-        background-color: transparent;
-        border: none;
-        border-bottom: 2px solid $primary-color;
-        font-size: 11pt;
-        padding: 7px 0px 7px $padding-left;
-        width: $search-width - $padding-left;
-
-        &:focus {
-            outline: none;
+    .search-card {
+        $padding-left: 35px;
+    
+        width: calc(100% - #{$exp-menu-width});
+        max-width: $search-max-width;
+        position: relative;
+    
+        > input {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid $primary-color;
+            font-size: 11pt;
+            padding: 7px 0px 7px $padding-left;
+            width: calc(100% - #{$padding-left});
+            max-width: $search-max-width;
+    
+            &:focus {
+                outline: none;
+            }
+        }
+    
+        > span {
+            color: $primary-color;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            display: block;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            pointer-events: none;
         }
     }
-
-    > span {
-        color: $primary-color;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 2;
-        display: block;
-        width: 34px;
-        height: 34px;
-        line-height: 34px;
-        text-align: center;
-        pointer-events: none;
-    }
-}
-
-.filter-exp {
-    display: inline-block;
-    padding-left: 20px;
-
-    > select {
-        width: 250px;
-        background-color: transparent;
-        font-weight: $semibold;
-        color: $primary-color;
-        border: 1px solid $primary-color;
-        border-radius: 5px;
-        padding: 7px 0px 7px 5px;
-        //@include control-style(none);
-        
-        option:first-child {
-            color: $gray3;
+    
+    .filter-exp {
+        padding-left: 20px;
+    
+        > select {
+            width: 250px;
+            background-color: transparent;
+            font-weight: $semibold;
+            color: $primary-color;
+            border: 1px solid $primary-color;
+            border-radius: 5px;
+            padding: 7px 0px 7px 5px;
+            //@include control-style(none);
+            
+            option:first-child {
+                color: $gray3;
+            }
         }
     }
 }
@@ -429,4 +438,299 @@ main {
     &.hero-pos {
         object-position: 0% 65%;
     }
+}
+
+.card-token {
+    $width-cost: 32px;
+    $width-name: 200px;
+    $width-exp: 128px;
+    $width-class: 128px + 32px;
+    $width-stats: 66px;
+    $height: 32px; // does not include borders.
+
+    @mixin normalize-cell-text () {
+        line-height: $height - 1;
+        text-align: center;
+        font-weight: $semibold;
+    }
+
+    display: flex;
+    height: $height + 1;
+
+    &:nth-child(even) {
+        background-color: $background-color-bright2;
+    }
+
+    .card-cost {
+        //display: inline-block;
+        width: $width-cost;
+        height: $height;
+        font-size: 16pt;
+        text-align: center;
+        line-height: 31px;
+        @include manafy();
+        border: 1px solid black;
+        &.rarity-free      { background-color: $rarity-basic;    }
+        &.rarity-common    { background-color: $rarity-common;    }
+        &.rarity-rare      { background-color: $rarity-rare;      }
+        &.rarity-epic      { background-color: $rarity-epic;      }
+        &.rarity-legendary { background-color: $rarity-legendary; }
+    }
+    .card-name {
+        height: $height;
+        width: $width-name;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+        .tile {
+            display: block;
+            position: absolute;
+            height: inherit;
+            width: inherit;
+            object-fit: cover;
+        }
+        .tile-fade-out {
+            $threshold: 35%; // the start of the transition from color to image.
+            $spread: 35%; // the extent of the transition. 0% will produce a hard border.
+
+            position: absolute;
+            width: 200px;
+            height: $height;
+            background: linear-gradient(120deg, #333, #333 $threshold, transparent $threshold + $spread, transparent);
+        }
+        .caption {
+            display: block;
+            position: absolute;
+            height: inherit;
+            width: inherit;
+            @include cardfy();
+            line-height: $height - 1;
+            padding-left: 10px;
+        }
+    }
+    .card-stats {
+        display: flex;
+        height: 32px;
+        width: $width-stats;
+        .card-atk, .card-hp, .card-void {
+            width: 32px;
+            height: 32px;
+            @include manafy();
+            line-height: $height - 1;
+            text-align: center;
+            font-size: 16pt;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+        }
+        .card-atk {
+            background-color: #ffbb00;
+        }
+        .card-hp {
+            background-color: #a71300;
+        }
+        .card-void {
+            background-color: transparent;
+        }
+    }
+    .card-exp {
+        height: $height + 1;
+        width: $width-exp;
+        border-right: 1px solid $gray1;
+        border-bottom: 1px solid $gray1;
+        @include normalize-cell-text();
+    }
+    .card-class {
+        height: $height + 1;
+        width: $width-class;
+        border-right: 1px solid $gray1;
+        border-bottom: 1px solid $gray1;
+
+        .class-display-icon {
+            float: left;
+        }
+        .class-label {
+            display: inline-block;
+            height: $height + 1;
+            width: 128px;
+            @include normalize-cell-text();
+        }
+    }
+    .card-desc {
+        height: $height + 1;
+        padding-left: 12px;
+        width: calc(100% - #{$width-cost} - #{$width-name} - #{$width-exp} - #{$width-class} - #{$width-stats} - 24px);
+        line-height: $height - 1;
+        border-bottom: 1px solid $gray1;
+
+        span {
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.card-token-reduced {
+    $height: 32px; // does not include borders.
+    $cost-amount-width: 32px;
+    $width: 232px;
+
+    @mixin normalize-cell-text () {
+        line-height: $height - 1;
+        text-align: center;
+        font-weight: $semibold;
+    }
+
+    display: flex;
+    height: $height + 1;
+    width: $width + 3;
+
+    &:nth-child(even) {
+        background-color: $background-color-bright2;
+    }
+
+    .card-cost {
+        //display: inline-block;
+        width: $cost-amount-width;
+        height: $height;
+        font-size: 16pt;
+        text-align: center;
+        line-height: 31px;
+        @include manafy();
+        border: 1px solid black;
+        &.rarity-free      { background-color: $rarity-basic;    }
+        &.rarity-common    { background-color: $rarity-common;    }
+        &.rarity-rare      { background-color: $rarity-rare;      }
+        &.rarity-epic      { background-color: $rarity-epic;      }
+        &.rarity-legendary { background-color: $rarity-legendary; }
+    }
+    .card-name {
+        height: $height;
+        width: $width - $cost-amount-width;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+        .tile {
+            display: block;
+            position: absolute;
+            height: inherit;
+            width: inherit;
+            object-fit: cover;
+        }
+        .tile-fade-out {
+            $threshold: 35%; // the start of the transition from color to image.
+            $spread: 35%; // the extent of the transition. 0% will produce a hard border.
+
+            position: absolute;
+            width: 200px;
+            height: $height;
+            background: linear-gradient(120deg, #333, #333 $threshold, transparent $threshold + $spread, transparent);
+        }
+        .caption {
+            display: block;
+            position: absolute;
+            height: inherit;
+            width: inherit;
+            @include cardfy();
+            line-height: $height - 1;
+            padding-left: 10px;
+        }
+    }
+    .card-amount {
+        position: absolute;
+        left: $width + 2;
+        width: $cost-amount-width;
+        height: $height;
+        font-size: 16pt;
+        text-align: center;
+        line-height: 31px;
+        @include manafy();
+        color: $secondary-color;
+        border: 1px solid black;
+        background-color: $primary-color;
+        z-index: 2;
+    }
+}
+
+.deck-list {
+    max-width: 800px;
+    .deck-token {
+        $border-width: 5px;
+        $height: 60px;
+
+        border: $border-width solid $primary-color;
+        outline: 1px solid $primary-color-dark2;
+        width: calc(100% - #{$border-width} - 6px);
+        max-width: 800px;
+        height: $height;
+        display: flex;
+
+        .deck-name {
+            width: calc(100% - #{$border-width} - 1px);
+            max-width: 800px;
+            height: $height;
+
+            .tile {
+                display: block;
+                margin-right: 0;
+                float: right;
+                height: $height;
+                width: 300px;
+                max-width: 800px;
+                object-fit: cover;
+                object-position: 0 15%;
+                border-right: $border-width solid $primary-color;
+            }
+            .tile-fade-out {
+                $threshold: 55%; // the start of the transition from color to image.
+                $spread: 15%; // the extent of the transition. 0% will produce a hard border.
+    
+                position: absolute;
+                width: calc(100% - 350px - #{$border-width} - 1px);
+                max-width: 800px;
+                height: $height;
+                background: linear-gradient(120deg, #333, #333 $threshold, transparent $threshold + $spread, transparent);
+
+                &.DEMONHUNTER { background: linear-gradient(105deg, #25896e, #25896e $threshold, transparent $threshold + $spread, transparent); }
+                &.DRUID       { background: linear-gradient(105deg, #573109, #573109 $threshold, transparent $threshold + $spread, transparent); }
+                &.HUNTER      { background: linear-gradient(105deg, #1d7a00, #1d7a00 $threshold, transparent $threshold + $spread, transparent); }
+                &.MAGE        { background: linear-gradient(105deg, #0c83af, #0c83af $threshold, transparent $threshold + $spread, transparent); }
+                &.PALADIN     { background: linear-gradient(105deg, #b00550, #b00550 $threshold, transparent $threshold + $spread, transparent); }
+                &.PRIEST      { background: linear-gradient(105deg, #b0b0b0, #b0b0b0 $threshold, transparent $threshold + $spread, transparent); }
+                &.ROGUE       { background: linear-gradient(105deg, #f2d800, #f2d800 $threshold, transparent $threshold + $spread, transparent); }
+                &.SHAMAN      { background: linear-gradient(105deg, #00386e, #00386e $threshold, transparent $threshold + $spread, transparent); }
+                &.WARLOCK     { background: linear-gradient(105deg, #5318a3, #5318a3 $threshold, transparent $threshold + $spread, transparent); }
+                &.WARRIOR     { background: linear-gradient(105deg, #8f0000, #8f0000 $threshold, transparent $threshold + $spread, transparent); }
+                
+            }
+            .caption {
+                display: block;
+                position: absolute;
+                height: inherit;
+                width: auto;
+                @include manafy();
+                font-size: 24pt;
+                line-height: $height - 1px;
+                padding-left: 35px;
+            }
+        }
+        .deck-remove {
+            background-color: #ca352a;
+            width: $height;
+            height: $height;
+
+            span {
+                padding: 8px;
+                font-size: 32pt;
+                color: #690801;
+            }
+        }
+    }
+}
+
+.class-icon {
+    width: 32px;
 }

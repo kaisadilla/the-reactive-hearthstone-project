@@ -1,9 +1,9 @@
 import React from 'react';
 import CardFilters from '../../Logic/CardFilters';
 import HsData from '../../Logic/HsData';
-import CardShowcase from '../CardShowcase';
+import CardTokenExpanded from '../CardTokenExpanded';
 
-class CardContainerGallery extends React.Component {
+class CardContainerList extends React.Component {
     state = {  }
 
     getAllCardElements () {
@@ -21,7 +21,7 @@ class CardContainerGallery extends React.Component {
                     && filters.checkType(this.props.filters.type, card)
                     && filters.checkTribe(this.props.filters.tribe, card)
                 ) {
-                    cards.push(<CardShowcase cardId={card["id"]} key={card["id"]} />);
+                    cards.push(<CardTokenExpanded cardId={card["id"]} key={card["id"]} />);
                 }
             }
         }
@@ -32,11 +32,11 @@ class CardContainerGallery extends React.Component {
         let cards = this.getAllCardElements();
 
         return (
-            <div className="card-container-gallery" id="card-gallery">
+            <div className="card-container-list" id="card-list">
                 {cards}
             </div>
         );
     }
 }
 
-export default CardContainerGallery;
+export default CardContainerList;
