@@ -201,12 +201,13 @@ main.right-aside {
 .aside-tools > div.class-buttons, .aside-tools > div.cost-buttons {
   text-align: center;
   margin: 10px 30px 10px 30px;
+  /* using padding-right: 5px looks a bit off. */
 }
 .aside-tools > div.class-buttons > :not(.chosen), .aside-tools > div.cost-buttons > :not(.chosen) {
   opacity: 60%;
 }
-.aside-tools > div.class-buttons > *, .aside-tools > div.cost-buttons > * {
-  padding-right: 5px;
+.aside-tools > div.class-buttons *::after, .aside-tools > div.cost-buttons *::after {
+  content: " ";
 }
 .aside-tools > div.card-showcase {
   width: 100%;
@@ -291,18 +292,23 @@ main.right-aside {
   color: #878787;
 }
 
-/*body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
-	-webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+.card-container-gallery, .card-container-list {
+  margin: 20px 5px 20px 0px;
+}
+.card-container-gallery a, .card-container-list a {
+  text-decoration: none;
+  color: #1e1e1e;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+.card-showcase {
+  width: 180px;
+  height: 240px;
+  object-fit: cover;
+  object-position: 0% 30%;
+  /* Hero card renders are not centered for whatever reason so we gotta do the job ourselves */
 }
-*/
+.card-showcase.hero-pos {
+  object-position: 0% 65%;
+}
 
 /*# sourceMappingURL=index.css.map */

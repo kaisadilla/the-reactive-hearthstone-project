@@ -8,6 +8,8 @@ import CardList from "./Views/CardList";
 
 import NavBar from "./Components/NavBar";
 
+import HsData from "./Logic/HsData";
+
 class App extends React.Component {
     constructor () {
         super();
@@ -16,8 +18,6 @@ class App extends React.Component {
 
         this.state = {
             dataReady: false,
-            collectibleCards: undefined,
-            expansions: undefined,
         }
     }
 
@@ -25,9 +25,7 @@ class App extends React.Component {
         fetch(this.URL_CARD_COLLECTIBLE)
             .then(resp => resp.json())
             .then(json => {
-                this.setState({
-                    collectibleCards: json
-                })
+                HsData.collectibleCards = json;
                 console.log("Resource loaded: collectible cards");
                 this._checkLoaded();
             });
@@ -35,9 +33,7 @@ class App extends React.Component {
         fetch(this.URL_EXPANSIONS)
             .then(resp => resp.json())
             .then(json => {
-                this.setState({
-                    expansions: json
-                })
+                HsData.expansions = json;
                 console.log("Resource loaded: expansions");
                 this._checkLoaded();
             });
@@ -46,7 +42,7 @@ class App extends React.Component {
     // checks if all the data has been loaded, and sets the flag "dataReady" if it is.
     _checkLoaded () {
         this.setState({
-            dataReady: typeof this.state.collectibleCards != "undefined" && typeof this.state.expansions != "undefined"
+            dataReady: typeof HsData.collectibleCards != "undefined" && typeof HsData.expansions != "undefined"
         })
     }
 
