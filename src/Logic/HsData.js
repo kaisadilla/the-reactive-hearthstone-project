@@ -55,6 +55,25 @@ class HsData {
         return rarity;
     }
 
+    /**
+     * Returns the id of the image associated with the given hero.
+     * @param {*} hero The internal name of the hero (i.e. "DEMONHUNTER")
+     */
+    static getHeroImgId (hero) {
+        switch (hero) {
+            case "WARRIOR"     : return "HERO_01";
+            case "SHAMAN"      : return "HERO_02";
+            case "ROGUE"       : return "HERO_03";
+            case "PALADIN"     : return "HERO_04";
+            case "HUNTER"      : return "HERO_05";
+            case "DRUID"       : return "HERO_06";
+            case "WARLOCK"     : return "HERO_07";
+            case "MAGE"        : return "HERO_08";
+            case "PRIEST"      : return "HERO_09";
+            case "DEMONHUNTER" : return "HERO_10";
+        }
+    }
+
     // TODO: This doesn't work at all.
     static stripTags (text) {
         if (typeof text === "string") {
