@@ -94,17 +94,15 @@ main.right-aside {
   text-decoration: none;
   color: #1e1e1e;
 }
-.aside-tools > span {
-  display: block;
-  width: 100%;
-}
-.aside-tools > span a {
+.aside-tools span a {
   display: block;
   width: 100%;
   text-decoration: none;
   color: #1e1e1e;
 }
-.aside-tools > span.title {
+.aside-tools span.title {
+  display: block;
+  width: 100%;
   font-size: 14pt;
   font-weight: 600;
   text-align: center;
@@ -112,66 +110,70 @@ main.right-aside {
   height: 40px;
   padding-top: 15px;
 }
-.aside-tools > span.section {
+.aside-tools span.section {
+  display: block;
+  width: 100%;
   background-color: #e18921;
   padding: 3px 0 3px 10px;
   text-transform: uppercase;
   font-weight: 600;
   color: #3f1811;
 }
-.aside-tools > span.option {
+.aside-tools span.option {
+  display: block;
+  width: 100%;
   padding: 5px 0 5px 20px;
 }
-.aside-tools > span.option:not(:last-child) {
+.aside-tools span.option:not(:last-child) {
   border-bottom: 1px solid #e18921;
 }
-.aside-tools > span.option.chosen {
+.aside-tools span.option.chosen {
   background-color: #492609;
   color: #e1e1e1;
   border-bottom: 1px solid #1e0000;
 }
-.aside-tools > span.option.chosen:hover {
+.aside-tools span.option.chosen:hover {
   background-color: #694429;
 }
-.aside-tools > span.option:hover {
+.aside-tools span.option:hover {
   cursor: pointer;
   background-color: #facd5f;
 }
-.aside-tools > div.legend-info {
+.aside-tools div.legend-info {
   width: 100%;
   height: 22px;
   padding: 5px 0 5px 0;
 }
-.aside-tools > div.legend-info > .legend {
+.aside-tools div.legend-info > .legend {
   float: left;
   padding-left: 20px;
 }
-.aside-tools > div.legend-info > .value {
+.aside-tools div.legend-info > .value {
   float: right;
   padding-right: 20px;
   text-align: right;
   font-weight: 600;
   color: #492609;
 }
-.aside-tools > div.legend-info:not(:last-child) {
+.aside-tools div.legend-info:not(:last-child) {
   border-bottom: 1px solid #e18921;
 }
-.aside-tools > div.legend-info-icon {
+.aside-tools div.legend-info-icon {
   width: 100%;
   height: 32px;
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.aside-tools > div.legend-info-icon > .legend {
+.aside-tools div.legend-info-icon > .legend {
   float: left;
   padding-left: 20px;
   line-height: 27px;
 }
-.aside-tools > div.legend-info-icon > .value {
+.aside-tools div.legend-info-icon > .value {
   float: right;
   padding-right: 16px;
 }
-.aside-tools > div.legend-info-icon > .value > span {
+.aside-tools div.legend-info-icon > .value > span {
   float: left;
   text-align: right;
   font-weight: 600;
@@ -179,50 +181,73 @@ main.right-aside {
   padding-right: 8px;
   line-height: 27px;
 }
-.aside-tools > div.legend-info-icon > .value > img {
+.aside-tools div.legend-info-icon > .value > img {
   display: block;
   float: right;
 }
-.aside-tools > div.legend-info-icon:not(:last-child) {
+.aside-tools div.legend-info-icon:not(:last-child) {
   border-bottom: 1px solid #e18921;
 }
-.aside-tools > div.info {
+.aside-tools div.info {
   width: 100%;
   text-align: center;
   padding: 5px 0 5px 0;
 }
-.aside-tools > div.info > span {
+.aside-tools div.info > span {
   display: inline-block;
   margin-left: 20px;
   margin-right: 20px;
   color: #492609;
 }
-.aside-tools > div.info:not(:last-child) {
+.aside-tools div.info:not(:last-child) {
   border-bottom: 1px solid #e18921;
 }
-.aside-tools > div.info.flavor {
+.aside-tools div.info.flavor {
   font-style: italic;
 }
-.aside-tools > div.class-buttons, .aside-tools > div.cost-buttons {
+.aside-tools div.class-buttons, .aside-tools div.cost-buttons {
   text-align: center;
   margin: 10px 30px 10px 30px;
 }
-.aside-tools > div.class-buttons > .button, .aside-tools > div.cost-buttons > .button {
+.aside-tools div.class-buttons > .button, .aside-tools div.cost-buttons > .button {
   margin: 0 2px 0 2px;
 }
-.aside-tools > div.class-buttons > .button:hover, .aside-tools > div.cost-buttons > .button:hover {
+.aside-tools div.class-buttons > .button:hover, .aside-tools div.cost-buttons > .button:hover {
   cursor: pointer;
 }
-.aside-tools > div.class-buttons > .button:not(.chosen), .aside-tools > div.cost-buttons > .button:not(.chosen) {
+.aside-tools div.class-buttons > .button:not(.chosen), .aside-tools div.cost-buttons > .button:not(.chosen) {
   opacity: 60%;
 }
-.aside-tools > div.card-showcase {
+.aside-tools div.display-card {
   width: 100%;
-  height: 375px;
+  padding: 10px 0 15px 0;
 }
-.aside-tools > div.card-showcase img {
+.aside-tools div.display-card img {
   display: block;
-  margin: auto;
+  margin: 0 auto;
+  width: 256px;
+  height: 335px;
+  object-fit: cover;
+  object-position: 0 30%;
+}
+.aside-tools div.display-card img.hero-pos {
+  object-position: 0 60%;
+}
+.aside-tools .play-audio {
+  width: 48px;
+  height: 24px;
+  margin-top: -1px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e18921;
+  font-size: 16pt;
+  color: #3f1811;
+}
+.aside-tools .play-audio:focus, .aside-tools .play-audio:active {
+  outline: none;
+  border: none;
+  outline-style: none;
+  -moz-outline-style: none;
 }
 
 .class-button:focus, .class-button:active {

@@ -34,7 +34,7 @@ class CardTokenExpanded extends React.Component {
 
     render() {
         let card = HsData.getCardById(this.props.cardId);
-        // the card description comes "pre-rendered" in the Json (it includes <b>html tags</b>), so we'll need to set it "dangerously".
+        // the card description comes "pre-rendered" in the Json (it includes <b>html tags</b>), so we'll need to set it "dangerously". I'd never do this in a real app.
         return (
             <a className="list-card-item" href={`card-info/${card["id"]}`} target="_blank">
                 <div className="card-token">

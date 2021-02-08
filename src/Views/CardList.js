@@ -22,6 +22,10 @@ class CardList extends React.Component {
         };
     }
 
+    componentDidMount () {
+        document.title = "Card list – the Hearthstone project";
+    }
+
     setToggledFilter (filterName, value) {
         if (this.state[filterName].includes(value)) {
             let newFilter = this.state[filterName].filter(c => c !== value);

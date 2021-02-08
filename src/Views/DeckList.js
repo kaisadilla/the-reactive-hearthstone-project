@@ -5,6 +5,7 @@ import Database from '../Logic/Database';
 
 class DeckList extends React.Component {
     componentDidMount () {
+        document.title = "My decks – the Hearthstone project";
         Database.openDatabase();
     }
 
