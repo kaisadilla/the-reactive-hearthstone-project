@@ -685,6 +685,17 @@ main {
     }
 }
 
+.action-btn {
+    font-family: $font-std;
+    font-size: 14pt;
+    font-weight: $semibold;
+    color: $secondary-color-text;
+    padding: 10px 20px;
+    background-color: $secondary-color;
+    border: 1px solid $secondary-color-dark3;
+    border-radius: 5px;
+}
+
 .deck-list {
     max-width: 800px;
     .deck-token {
@@ -697,9 +708,6 @@ main {
         max-width: 800px;
         height: $height;
         display: flex;
-
-        &:last-child {
-        }
 
         .deck-name {
             width: calc(100% - #{$border-width} - 1px);

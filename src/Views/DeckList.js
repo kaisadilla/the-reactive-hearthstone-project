@@ -18,23 +18,28 @@ class DeckList extends React.Component {
         HsDB.openDatabase().then(() => this.setState({
             dbOpen: true,
         }));
+        setInterval(() => retrieveDecks(this), 200);
     }
 
     componentDidUpdate () {
-        if (this.state.dbOpen && this.state.decks.length === 0) {
+        /*if (this.state.dbOpen && this.state.decks.length === 0) {
             retrieveDecks(this);
-            setInterval(() => retrieveDecks(this), 200);
-        }
+        }*/
+    }
 
-        function retrieveDecks (thisClass) {
+    retrieveDecks (thisClass) {
+        if (this.state.dbOpen) {
             HsDB.getAllDecks().then(res => thisClass.setState({
                 decks: res,
             }));
         }
     }
-
-    testWhat() {
-        let obj = HsDB.SayWhat().then(val => console.log(val));
+    
+    createDeck() {
+        deck = {
+            class: "MAGE",
+            cards: []
+        }
     }
 
     render() {
@@ -42,6 +47,7 @@ class DeckList extends React.Component {
             <div>
                 <DeckFilterPanel />
                 <main className="left-aside">
+                    <button className="action-btn" onClick={void(0)}>New deck</button>
                     <DeckContainerList decks={this.state.decks} />
                 </main>
             </div>

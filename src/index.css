@@ -556,6 +556,17 @@ main.right-aside {
   z-index: 2;
 }
 
+.action-btn {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14pt;
+  font-weight: 600;
+  color: #3f1811;
+  padding: 10px 20px;
+  background-color: #ffb00d;
+  border: 1px solid #954727;
+  border-radius: 5px;
+}
+
 .deck-list {
   max-width: 800px;
 }
