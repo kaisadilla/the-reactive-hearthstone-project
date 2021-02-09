@@ -60,8 +60,8 @@ class CardList extends React.Component {
 
         return (
             <div>
-                <CardFilterPanel 
-                    setCardDisplay={this.setCardDisplay} cardDisplay={this.state.display}
+                <CardFilterPanel displayMode="select"
+                    cardDisplay={this.state.display}
                     filters={filters} setToggledFilter={this.setToggledFilter} setParentState={this.setState}
                 />
                 <main className="left-aside">

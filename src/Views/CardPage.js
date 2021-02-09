@@ -3,16 +3,23 @@ import CardDataPanel from '../Components/Cards/CardDataPanel';
 import HsData from '../Logic/HsData';
 
 class CardPage extends React.Component {
-    componentDidMount () {
+    constructor () {
+        super();
         let cardId = window.location.pathname.split("/").pop();
         let card = HsData.getCardById(cardId);
-        document.title = `${card["name"]} – the Hearthstone project`;
+        this.state = {
+            card: card
+        };
+    }
+
+    componentDidMount () {
+        document.title = `${this.state.card["name"]} – the Hearthstone project`;
     }
 
     render () {
         return (
             <div>
-                <CardDataPanel />
+                <CardDataPanel card={this.state.card} />
                 <main className="left-aside">
 
                 </main>

@@ -11,6 +11,7 @@ import NavBar from "./Components/NavBar";
 
 import HsData from "./Logic/HsData";
 import CardPage from './Views/CardPage';
+import DeckViewer from './Views/DeckViewer';
 
 class App extends React.Component {
     constructor () {
@@ -59,6 +60,7 @@ class App extends React.Component {
                                 <Route path="/cards" component={CardList} />
                                 <Route path="/card-info" component={CardPage} />
                                 <Route path="/decks" component={DeckList} />
+                                <Route path="/deck-viewer" component={DeckViewer} />
                             </Switch>
                         </div>
                     </Router>

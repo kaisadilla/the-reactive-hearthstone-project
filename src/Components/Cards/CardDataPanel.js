@@ -14,15 +14,6 @@ import Warrior from "../../img/class-warrior.png";
 import Neutral from "../../img/class-neutral.png";
 
 class CardDataPanel extends React.Component {
-    constructor () {
-        super();
-        let cardId = window.location.pathname.split("/").pop();
-        let card = HsData.getCardById(cardId);
-        this.state = {
-            card: card
-        };
-    }
-
     getClassIcon (className) {
         switch (className) {
             case "DEMONHUNTER": return DemonHunter;
@@ -40,7 +31,7 @@ class CardDataPanel extends React.Component {
     }
 
     getHtmlAttack () {
-        let card = this.state.card;
+        let card = this.props.card;
         if (card["type"] === "MINION") return (
             <div className="legend-info">
                 <span className="legend">Attack</span>
@@ -57,7 +48,7 @@ class CardDataPanel extends React.Component {
     }
 
     getHtmlHealth () {
-        let card = this.state.card;
+        let card = this.props.card;
         if (card["type"] === "MINION") return (
             <div className="legend-info">
                 <span className="legend">Health</span>
@@ -80,7 +71,7 @@ class CardDataPanel extends React.Component {
     }
 
     getCreatureSounds () {
-        let card = this.state.card;
+        let card = this.props.card;
         let audioIntro = new Audio(`https://hearthstonesounds.s3.amazonaws.com/${card["id"]}_S.wav`);
         let audioPlay = new Audio(`https://hearthstonesounds.s3.amazonaws.com/${card["id"]}_P.wav`);
         let audioAttack = new Audio(`https://hearthstonesounds.s3.amazonaws.com/${card["id"]}_A.wav`);
@@ -115,7 +106,7 @@ class CardDataPanel extends React.Component {
     }
 
     getHeroSounds () {
-        let card = this.state.card;
+        let card = this.props.card;
         let audioIntro = new Audio(`https://hearthstonesounds.s3.amazonaws.com/${card["id"]}_I1.wav`);
         let audioPlay = new Audio(`https://hearthstonesounds.s3.amazonaws.com/${card["id"]}_S1.wav`);
         let audioAttack = new Audio(`https://hearthstonesounds.s3.amazonaws.com/${card["id"]}_A1.wav`);
@@ -183,7 +174,7 @@ class CardDataPanel extends React.Component {
     }
 
     render () {
-        let card = this.state.card;
+        let card = this.props.card;
 
         return (
             <aside className="aside-tools">

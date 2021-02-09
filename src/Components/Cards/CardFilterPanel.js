@@ -13,13 +13,26 @@ import Warrior from "../../img/class-warrior.png";
 import Neutral from "../../img/class-neutral.png";
 
 class CardFilterPanel extends React.Component {
+
+    renderDisplayOptions () {
+        let displayOptions;
+        if (this.props.displayMode === "select") {
+            displayOptions = (
+                <div>
+                    <span className="section">Display</span>
+                    <span id="set-display-list " className={`option ${this.props.cardDisplay === "list" && "chosen"}`} onClick={() => this.props.setParentState({display: "list"})}>List</span>
+                    <span id="set-display-gallery" className={`option ${this.props.cardDisplay === "gallery" && "chosen"}`} onClick={() => this.props.setParentState({display: "gallery"})}>Gallery</span>
+                </div>
+            );
+        }
+        return displayOptions;
+    }
+
     render () {
         return (
             <aside className="aside-tools">
                 <span className="title">Cards</span>
-                <span className="section">Display</span>
-                <span id="set-display-list " className={`option ${this.props.cardDisplay === "list" && "chosen"}`} onClick={() => this.props.setParentState({display: "list"})}>List</span>
-                <span id="set-display-gallery" className={`option ${this.props.cardDisplay === "gallery" && "chosen"}`} onClick={() => this.props.setParentState({display: "gallery"})}>Gallery</span>
+                {this.renderDisplayOptions()}
                 <span className="section">Classes</span>
                 <div className="class-buttons" id="class-buttons">
                     <img src={DemonHunter} alt="demonhunter" className={`button class-icon ${this.props.filters.cardClass.includes("DEMONHUNTER") && "chosen"}`} onClick={() => this.props.setToggledFilter("filterClass", "DEMONHUNTER")} />

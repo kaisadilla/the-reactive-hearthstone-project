@@ -20,14 +20,16 @@ class DeckList extends React.Component {
         }));
     }
 
-    componentDidUpdate (prevProps, prevState) {
+    componentDidUpdate () {
         if (this.state.dbOpen && this.state.decks.length === 0) {
-            HsDB.getAllDecks().then(res => this.setState({
+            retrieveDecks(this);
+            setInterval(() => retrieveDecks(this), 200);
+        }
+
+        function retrieveDecks (thisClass) {
+            HsDB.getAllDecks().then(res => thisClass.setState({
                 decks: res,
             }));
-        }
-        else if (this.state.decks.length > 0) {
-            console.log(`Decks found in the database: ${this.state.decks.length}`);
         }
     }
 
