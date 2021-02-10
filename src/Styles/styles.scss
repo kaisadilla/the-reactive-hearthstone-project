@@ -971,6 +971,29 @@ main {
     }
 }
 
+.deck-card-delete-area {
+    position: fixed;
+    margin-top: 50px;
+    margin-right: 300px;
+    z-index: 10;
+
+    min-height: calc(100vh - 150px);
+    width: calc(100% - 650px);
+
+    background: $secondary-color-light1;
+    text-align: center;
+    outline: 2px dashed $primary-color;
+
+    > span {
+        color: $primary-color;
+        font-weight: $semibold;
+        font-size: 28pt;
+        display: block;
+        margin-top: calc(((100vh - 150px) / 2) - 28pt);
+    }
+}
+
+
 .no-scroll {
     overflow: hidden;
 }

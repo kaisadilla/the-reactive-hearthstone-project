@@ -827,6 +827,25 @@ main.right-aside {
   opacity: 60%;
 }
 
+.deck-card-delete-area {
+  position: fixed;
+  margin-top: 50px;
+  margin-right: 300px;
+  z-index: 10;
+  min-height: calc(100vh - 150px);
+  width: calc(100% - 650px);
+  background: #facd5f;
+  text-align: center;
+  outline: 2px dashed #492609;
+}
+.deck-card-delete-area > span {
+  color: #492609;
+  font-weight: 600;
+  font-size: 28pt;
+  display: block;
+  margin-top: calc(((100vh - 150px) / 2) - 28pt);
+}
+
 .no-scroll {
   overflow: hidden;
 }

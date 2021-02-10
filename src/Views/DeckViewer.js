@@ -1,13 +1,19 @@
 import React from 'react';
+import CardContainerGallery from '../Components/Cards/CardContainerGallery';
 import CardFilterPanel from '../Components/Cards/CardFilterPanel';
 import CardNavBar from '../Components/Cards/CardNavBar';
 import CreateDeckForm from '../Components/CreateDeckForm';
+import DeckCardDeleteArea from '../Components/Decks/DeckCardDeleteArea';
 import DeckDisplayView from '../Components/Decks/DeckDisplayView';
 import HsDB from '../Logic/HsDB';
 
 class DeckViewer extends React.Component {
     constructor () {
         super();
+
+        this.setToggledFilter = this.setToggledFilter.bind(this);
+        this.displayDeleteArea = this.displayDeleteArea.bind(this);
+        this.removeCard = this.removeCard.bind(this);
 
         this.state = {
             display: "list",
@@ -18,8 +24,12 @@ class DeckViewer extends React.Component {
             filterRarity: [],
             filterType: [],
             filterTribe: [],
+
+            deckName: "",
+            deckClass: "",
+            deckCards: [],
+            dragDeckToEliminate: false,
         };
-        this.setToggledFilter = this.setToggledFilter.bind(this);
         this.setState = this.setState.bind(this);
     }
 
@@ -31,9 +41,6 @@ class DeckViewer extends React.Component {
     }
 
     componentDidUpdate () {
-        /*if (this.state.dbOpen) {
-            HsDB.getDeckById(3).then(res => console.log(res));
-        }*/
         if (this.state.dbOpen && !this.state.deck) {
             let deckId = parseInt(window.location.pathname.split("/").pop());
             HsDB.getDeckById(deckId).then(res => this.setState({
@@ -41,7 +48,6 @@ class DeckViewer extends React.Component {
             }));
         }
         if (this.state.deck) {
-            console.log(this.state.deck);
             document.title = `${this.state.deck.name} - the Hearthstone project`;
         }
     }
@@ -58,6 +64,21 @@ class DeckViewer extends React.Component {
                 [filterName]: [...prev[filterName], value]
             }));
         }
+    }
+
+    displayDeleteArea (val) {
+        this.setState({
+            dragDeckToEliminate: val,
+        });
+    }
+
+    removeCard (cardId) {
+        let removedIndex = this.state.deckCards.findIndex(c => c === cardId);
+        let updatedDeck = [...this.state.deckCards]
+        updatedDeck.splice(removedIndex, 1);
+        this.setState({
+            deckCards: updatedDeck,
+        })
     }
 
     render () {
@@ -77,9 +98,11 @@ class DeckViewer extends React.Component {
                     setToggledFilter={this.setToggledFilter} setParentState={this.setState}
                 />
                 <main className="left-aside right-aside">
+                    {this.state.dragDeckToEliminate && <DeckCardDeleteArea removeCard={this.removeCard} />}
                     <CardNavBar setParentState={this.setState} />
+                    <CardContainerGallery chosenExp={this.state.chosenExp} filters={filters} />
                 </main>
-                {this.state.deck && <DeckDisplayView deck={this.state.deck} />}
+                {this.state.deck && <DeckDisplayView deck={this.state.deck} parentState={this.state} setParentState={this.setState} displayDeleteArea={this.displayDeleteArea}/>}
             </div>
         );
     }

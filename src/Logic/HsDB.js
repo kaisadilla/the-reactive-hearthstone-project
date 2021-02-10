@@ -41,10 +41,14 @@ class HsDB {
         });
     }
     
+    /**
+     * Inserts a deck in the database and returns the id assigned to it.
+     * @param {*} deck The Deck to insert in the database.
+     */
     static async insertDeck (deck) {
         return new Promise(async (resolve, reject) => {
-            (await HsDB._openDeckStore()).add(deck);
-            resolve(true);
+            let deckId = (await HsDB._openDeckStore()).add(deck);
+            resolve(deckId);
         })
     }
 

@@ -3,6 +3,7 @@ import CreateDeckForm from '../Components/CreateDeckForm';
 import DeckContainerList from '../Components/Decks/DeckContainerList';
 import DeckFilterPanel from '../Components/Decks/DeckFilterPanel';
 import HsDB from '../Logic/HsDB';
+import { useHistory } from "react-router-dom";
 
 class DeckList extends React.Component {
     constructor () {
@@ -10,6 +11,7 @@ class DeckList extends React.Component {
         this.openNewDeckForm = this.openNewDeckForm.bind(this);
         this.closeForm = this.closeForm.bind(this);
         this.createDeck = this.createDeck.bind(this);
+        this.updateInterval = undefined;
 
         this.state = {
             dbOpen: false,
@@ -23,13 +25,17 @@ class DeckList extends React.Component {
         HsDB.openDatabase().then(() => this.setState({
             dbOpen: true,
         }));
-        setInterval(() => this.retrieveDecks(this), 200);
+        this.updateInterval = setInterval(() => this.retrieveDecks(this), 200);
     }
 
     componentDidUpdate () {
         /*if (this.state.dbOpen && this.state.decks.length === 0) {
             retrieveDecks(this);
         }*/
+    }
+
+    componentWillUnmount () {
+        clearInterval(this.updateInterval);
     }
 
     retrieveDecks (thisClass) {
@@ -54,7 +60,9 @@ class DeckList extends React.Component {
     
     createDeck (deck) {
         this.closeForm();
-        HsDB.insertDeck(deck);
+        HsDB.insertDeck(deck).then((res) => {
+            this.props.history.push(`/deck-viewer/${res}`)
+        });
     }
 
     render() {
