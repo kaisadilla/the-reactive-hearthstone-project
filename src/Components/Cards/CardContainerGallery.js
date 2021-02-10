@@ -2,6 +2,7 @@ import React from 'react';
 import CardFilters from '../../Logic/CardFilters';
 import HsData from '../../Logic/HsData';
 import CardShowcase from '../CardShowcase';
+import CardShowcaseDraggable from '../CardShowcaseDraggable';
 
 class CardContainerGallery extends React.Component {
     state = {  }
@@ -21,7 +22,12 @@ class CardContainerGallery extends React.Component {
                     && filters.checkType(this.props.filters.type, card)
                     && filters.checkTribe(this.props.filters.tribe, card)
                 ) {
-                    cards.push(<CardShowcase cardId={card["id"]} key={card["id"]} />);
+                    if (this.props.useDraggable) {
+                        cards.push(<CardShowcaseDraggable cardId={card["id"]} key={card["id"]} displayDeckDropBorder={this.props.displayDeckDropBorder} />);
+                    }
+                    else {
+                        cards.push(<CardShowcase cardId={card["id"]} key={card["id"]} />);
+                    }
                 }
             }
         }

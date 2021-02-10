@@ -5,8 +5,8 @@ $primary-color-light2: #8a6449;
 $primary-color-light3: #ac856c;
 $primary-color-light4: #cfa890;
 $primary-color-light5: #f2cdb6;
-$primary-color-dark1: #341409;
-$primary-color-dark2: #1e0000;
+$primary-color-dark1: #361e0a; //#341409;
+$primary-color-dark2: #1d1209;
 /******  SECONDARY COLOR  ******/
 $secondary-color: #ffb00d;
 $secondary-color-light1: #facd5f;
@@ -700,6 +700,7 @@ main {
 
 .deck-list {
     max-width: 800px;
+
     .deck-token {
         $border-width: 5px;
         $height: 60px;
@@ -781,6 +782,7 @@ main {
 
 .deck-view {
     border: 1px solid black;
+    background-color: $primary-color-dark2;
 
     position: fixed;
     z-index: 1;
@@ -797,7 +799,7 @@ main {
         $border-radius: 7px;
 
         margin-top: 1px;
-        border: $border-radius solid $primary-color-dark1;
+        border: $border-radius solid $secondary-color-dark1;
         width: $width;
         height: $height;
         box-sizing: border-box;
@@ -843,19 +845,66 @@ main {
 
     > .deck-cards {
         width: 235px;
-        margin-left: 33px;
-        margin-top: 10px;
+        margin: 10px 0 20px 33px;
         min-height: calc(100vh - 200px);
+        max-height: 500px;
         transition: background-color 1.2s ease-out;
 
         &.display-border {
-            outline: 2px dashed $primary-color;
+            outline: 2px dashed $primary-color-light2;
         }
 
         &.display-warning {
             outline: 2px solid red;
             background-color: red;
             transition: background-color 0s;
+        }
+    }
+
+    > .deck-actions {
+        background-color: $primary-color;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .deck-card-count {
+            float: right;
+            width: 51px;
+            text-align: center;
+            background-color: $secondary-color-dark1;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 25px;
+            font-weight: $semibold;
+        }
+        
+        button {
+            float: left;
+            border: none;
+            padding: 5px 10px;
+            font-size: 11pt;
+        }
+
+        .deck-save {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            background-color: $gray2;
+            &:hover {
+                z-index: 5;
+                box-shadow: 0 0 0 2px $gray4;
+            }
+        }
+
+        .deck-save-exit {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background-color: $secondary-color;
+            &:hover {
+                z-index: 5;
+                box-shadow: 0 0 0 2px $secondary-color-dark2;
+            }
         }
     }
 }

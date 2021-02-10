@@ -26,6 +26,7 @@ class DeckList extends React.Component {
             dbOpen: true,
         }));
         this.updateInterval = setInterval(() => this.retrieveDecks(this), 200);
+        HsDB.updateDeck(1, {});
     }
 
     componentDidUpdate () {

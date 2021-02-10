@@ -52,6 +52,27 @@ class HsDB {
         })
     }
 
+    static async updateDeck (id, deck) {
+        return new Promise(async (resolve, reject) => {
+            const deck = (await HsDB._openDeckStore()).get(id);
+            deck.name = "Trigger";
+            resolve(true); //TODO: This
+        });
+    }
+
+    /*static updateDeckxxx (id, data) {
+        let deckStore = Database._openDeckStore();
+        let req = deckStore.get(id);
+        req.onsuccess = evt => {
+            let deck = evt.target.result;
+            if ("name" in data) deck.name = data.name;
+            if ("cards" in data) deck.cards = data.cards;
+            let reqUpdate = deckStore.put(deck);
+
+            reqUpdate.onsuccess = evt => console.log(`Deck of id ${id} updated with ${data}`);
+        }
+    }*/
+
     static async deleteDeck (id) {
         return new Promise(async (resolve, reject) => {
             (await HsDB._openDeckStore()).delete(id);

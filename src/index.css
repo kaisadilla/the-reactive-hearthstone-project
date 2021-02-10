@@ -131,7 +131,7 @@ main.right-aside {
 .aside-tools span.option.chosen {
   background-color: #492609;
   color: #e1e1e1;
-  border-bottom: 1px solid #1e0000;
+  border-bottom: 1px solid #1d1209;
 }
 .aside-tools span.option.chosen:hover {
   background-color: #694429;
@@ -573,7 +573,7 @@ main.right-aside {
 }
 .deck-list .deck-token {
   border: 5px solid #492609;
-  outline: 1px solid #1e0000;
+  outline: 1px solid #1d1209;
   width: calc(100% - 5px - 6px);
   max-width: 800px;
   height: 60px;
@@ -661,6 +661,7 @@ main.right-aside {
 
 .deck-view {
   border: 1px solid black;
+  background-color: #1d1209;
   position: fixed;
   z-index: 1;
   bottom: 0;
@@ -672,7 +673,7 @@ main.right-aside {
 }
 .deck-view > .deck-hero {
   margin-top: 1px;
-  border: 7px solid #341409;
+  border: 7px solid #e18921;
   width: 100%;
   height: 100px;
   box-sizing: border-box;
@@ -712,18 +713,60 @@ main.right-aside {
 }
 .deck-view > .deck-cards {
   width: 235px;
-  margin-left: 33px;
-  margin-top: 10px;
+  margin: 10px 0 20px 33px;
   min-height: calc(100vh - 200px);
+  max-height: 500px;
   transition: background-color 1.2s ease-out;
 }
 .deck-view > .deck-cards.display-border {
-  outline: 2px dashed #492609;
+  outline: 2px dashed #8a6449;
 }
 .deck-view > .deck-cards.display-warning {
   outline: 2px solid red;
   background-color: red;
   transition: background-color 0s;
+}
+.deck-view > .deck-actions {
+  background-color: #492609;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.deck-view > .deck-actions .deck-card-count {
+  float: right;
+  width: 51px;
+  text-align: center;
+  background-color: #e18921;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 25px;
+  font-weight: 600;
+}
+.deck-view > .deck-actions button {
+  float: left;
+  border: none;
+  padding: 5px 10px;
+  font-size: 11pt;
+}
+.deck-view > .deck-actions .deck-save {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #a5a5a5;
+}
+.deck-view > .deck-actions .deck-save:hover {
+  z-index: 5;
+  box-shadow: 0 0 0 2px #787878;
+}
+.deck-view > .deck-actions .deck-save-exit {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background-color: #ffb00d;
+}
+.deck-view > .deck-actions .deck-save-exit:hover {
+  z-index: 5;
+  box-shadow: 0 0 0 2px #bd6628;
 }
 
 .class-icon {

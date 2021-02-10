@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from "react-dom";
 import HsData from '../../Logic/HsData';
 import CardTokenDraggable from '../CardTokenDraggable';
 
@@ -6,14 +7,20 @@ class DeckDisplayView extends React.Component {
     constructor (props) {
         super();
 
-        this.updateName = this.updateName.bind(this);
         this.setState = this.setState.bind(this);
+        this.updateName = this.updateName.bind(this);
+        this._dropGalleryCard = this._dropGalleryCard.bind(this);
+
+        this.deckCards = React.createRef();
 
         props.setParentState({
             deckName: props.deck.name,
             deckClass: props.deck.class,
             deckCards: props.deck.cards,
         })
+        this.state = {
+            displayWarning: false,
+        }
     }
 
     updateName (evt) {
@@ -41,7 +48,7 @@ class DeckDisplayView extends React.Component {
     
     render () {
         return (
-            <div className="deck-view">
+            <div className="deck-view" onDrop={this._dropGalleryCard} onDragOver={this._allowDrop}>
                 <div className="deck-hero">
                     <div className="deck-hero-frame">
                         <img src={`https://art.hearthstonejson.com/v1/512x/${HsData.getHeroImgId(this.props.parentState.deckClass)}.jpg`} />
@@ -50,7 +57,12 @@ class DeckDisplayView extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="deck-cards" onDrop={void(0)} onDragOver={void(0)}>
+                <div className="deck-actions">
+                    <button className="deck-save">Save</button>
+                    <button className="deck-save-exit">Save and exit</button>
+                    <span className="deck-card-count">{this.props.parentState.deckCards.length} / 30</span>
+                </div>
+                <div className={`deck-cards ${this.props.deckDropBorder ? "display-border" : ""} ${this.state.displayWarning ? "display-warning" : ""}`} ref={this.deckCards}>
                     {this._getAllCardElements()}
                 </div>
             </div>
@@ -90,6 +102,23 @@ class DeckDisplayView extends React.Component {
         })
 
         return deck;
+    }
+
+    _dropGalleryCard (evt) {
+        evt.preventDefault();
+        if (evt.dataTransfer.getData("operation") === "addCard") {
+            let potentialCard = evt.dataTransfer.getData("card-id");
+            let wasAdded = this.props.addCard(potentialCard);
+    
+            if (!wasAdded) {
+                this.setState({displayWarning: true})
+                setTimeout(() => this.setState({displayWarning: false}), 100);
+            }
+        }
+        }
+
+    _allowDrop (evt) {
+        evt.preventDefault();
     }
 }
 

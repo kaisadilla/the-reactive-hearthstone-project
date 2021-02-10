@@ -4,27 +4,27 @@ class DeckCardDeleteArea extends React.Component {
     constructor () {
         super();
 
-        this.allowDrop = this.allowDrop.bind(this);
-        this.dropDeckCard = this.dropDeckCard.bind(this);
-    }
-
-    allowDrop (evt) {
-        evt.preventDefault();
-    }
-
-    dropDeckCard (evt) {
-        if (evt.dataTransfer.getData("operation") === "deleteCard") {
-            let removedCard = evt.dataTransfer.getData("card-id");
-            this.props.removeCard(removedCard);
-        }
+        this._allowDrop = this._allowDrop.bind(this);
+        this._dropDeckCard = this._dropDeckCard.bind(this);
     }
 
     render() {
         return (
-            <div className="deck-card-delete-area" id="deck-card-delete-area" onDrop={this.dropDeckCard} onDragOver={this.allowDrop}>
+            <div className="deck-card-delete-area" id="deck-card-delete-area" onDrop={this._dropDeckCard} onDragOver={this._allowDrop}>
                 <span>Drop card here to remove it from the deck.</span>
             </div>
         );
+    }
+
+    _allowDrop (evt) {
+        evt.preventDefault();
+    }
+
+    _dropDeckCard (evt) {
+        if (evt.dataTransfer.getData("operation") === "deleteCard") {
+            let removedCard = evt.dataTransfer.getData("card-id");
+            this.props.removeCard(removedCard);
+        }
     }
 }
 

@@ -12,6 +12,11 @@ class CardTokenDraggable extends React.Component {
         }
     }
 
+    // React's DOM is mean to JS events. onDragEnd won't trigger if the component is removed before the drag ends, so we'll end it manually.
+    componentWillUnmount () {
+        this._dragDeckCardEnd();
+    }
+
     render () {
         let card = this.state.card;
         return (
@@ -35,7 +40,7 @@ class CardTokenDraggable extends React.Component {
         this.props.displayDeleteArea(true);
     }
 
-    _dragDeckCardEnd (evt) {
+    _dragDeckCardEnd () {
         this.props.displayDeleteArea(false);
     }
 }
