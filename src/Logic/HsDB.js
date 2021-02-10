@@ -8,7 +8,7 @@ class HsDB {
     static STORE_NAME = "decks";
 
     static async openDatabase () {
-        return new Promise (async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             HsDB.db = await openDB(HsDB.DB_NAME, HsDB.VERSION, {
                 upgrade (db, oldVersion, newVersion, transaction) {
                     let store = db.createObjectStore(HsDB.STORE_NAME, {keyPath: "id", autoIncrement: true});
@@ -22,14 +22,14 @@ class HsDB {
     }
 
     static async getDeckById (id) {
-        return new Promise (async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const deck = (await HsDB._openDeckStore("readonly")).get(id);
             resolve(deck);
         });
     }
 
     static async getAllDecks () {
-        return new Promise (async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const deckStore = await HsDB._openDeckStore("readonly");
             let decks = []
             let cursor = await deckStore.openCursor();
@@ -40,17 +40,23 @@ class HsDB {
             resolve(decks);
         });
     }
+    
+    static async insertDeck (deck) {
+        return new Promise(async (resolve, reject) => {
+            (await HsDB._openDeckStore()).add(deck);
+            resolve(true);
+        })
+    }
 
     static async deleteDeck (id) {
-        return new Promise (async (resolve, reject) => {
-            const deckStore = await HsDB._openDeckStore();
-            deckStore.delete(id);
+        return new Promise(async (resolve, reject) => {
+            (await HsDB._openDeckStore()).delete(id);
             resolve(true);
         });
     }
 
     static async _openDeckStore(readMode = "readwrite") {
-        return new Promise (async (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const deckStore = await HsDB.db.transaction(HsDB.STORE_NAME, readMode).objectStore(HsDB.STORE_NAME);
             resolve(deckStore);
         });

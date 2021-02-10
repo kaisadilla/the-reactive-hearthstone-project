@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateDeckForm from '../Components/CreateDeckForm';
 import DeckContainerList from '../Components/Decks/DeckContainerList';
 import DeckFilterPanel from '../Components/Decks/DeckFilterPanel';
 import HsDB from '../Logic/HsDB';
@@ -6,10 +7,14 @@ import HsDB from '../Logic/HsDB';
 class DeckList extends React.Component {
     constructor () {
         super();
+        this.openNewDeckForm = this.openNewDeckForm.bind(this);
+        this.closeForm = this.closeForm.bind(this);
+        this.createDeck = this.createDeck.bind(this);
 
         this.state = {
             dbOpen: false,
             decks: [],
+            createDeckForm: false,
         }
     }
 
@@ -18,7 +23,7 @@ class DeckList extends React.Component {
         HsDB.openDatabase().then(() => this.setState({
             dbOpen: true,
         }));
-        setInterval(() => retrieveDecks(this), 200);
+        setInterval(() => this.retrieveDecks(this), 200);
     }
 
     componentDidUpdate () {
@@ -34,12 +39,22 @@ class DeckList extends React.Component {
             }));
         }
     }
+
+    openNewDeckForm () {
+        this.setState({
+            createDeckForm: true, 
+        })
+    }
+
+    closeForm () {
+        this.setState({
+            createDeckForm: false,
+        })
+    }
     
-    createDeck() {
-        deck = {
-            class: "MAGE",
-            cards: []
-        }
+    createDeck (deck) {
+        this.closeForm();
+        HsDB.insertDeck(deck);
     }
 
     render() {
@@ -47,9 +62,10 @@ class DeckList extends React.Component {
             <div>
                 <DeckFilterPanel />
                 <main className="left-aside">
-                    <button className="action-btn" onClick={void(0)}>New deck</button>
+                    <button className="action-btn" onClick={this.openNewDeckForm}>New deck</button>
                     <DeckContainerList decks={this.state.decks} />
                 </main>
+                {this.state.createDeckForm && <CreateDeckForm createDeck={this.createDeck} closeForm={this.closeForm} />}
             </div>
         );
     }

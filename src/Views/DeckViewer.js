@@ -1,18 +1,13 @@
 import React from 'react';
 import CardFilterPanel from '../Components/Cards/CardFilterPanel';
 import CardNavBar from '../Components/Cards/CardNavBar';
+import CreateDeckForm from '../Components/CreateDeckForm';
 import DeckDisplayView from '../Components/Decks/DeckDisplayView';
 import HsDB from '../Logic/HsDB';
 
 class DeckViewer extends React.Component {
     constructor () {
         super();
-        /*let deckId = window.location.pathname.split("/").pop();
-        HsDB.openDatabase().then(() => HsDB.getDeckById(deckId).then(res => {
-            this.setState({
-                deck: res,
-            });
-        }));*/
 
         this.state = {
             display: "list",
@@ -84,7 +79,7 @@ class DeckViewer extends React.Component {
                 <main className="left-aside right-aside">
                     <CardNavBar setParentState={this.setState} />
                 </main>
-                {this.state.deck && <DeckDisplayView deck />}
+                {this.state.deck && <DeckDisplayView deck={this.state.deck} />}
             </div>
         );
     }
