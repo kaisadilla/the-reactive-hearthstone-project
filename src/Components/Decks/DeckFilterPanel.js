@@ -19,17 +19,17 @@ class DeckFilterPanel extends React.Component {
                 <span className="title">Filters</span>
                 <span className="section">Classes</span>
                 <div className="class-buttons" id="class-buttons">
-                    <img src={DemonHunter} alt="demonhunter" className={`button class-icon`} onClick={void(0)} />
-                    <img src={Druid}       alt="druid"       className={`button class-icon`} onClick={void(0)} />
-                    <img src={Hunter}      alt="hunter"      className={`button class-icon`} onClick={void(0)} />
-                    <img src={Mage}        alt="mage"        className={`button class-icon`} onClick={void(0)} />
-                    <img src={Paladin}     alt="paladin"     className={`button class-icon`} onClick={void(0)} />
-                    <img src={Priest}      alt="priest"      className={`button class-icon`} onClick={void(0)} />
-                    <img src={Rogue}       alt="rogue"       className={`button class-icon`} onClick={void(0)} />
-                    <img src={Shaman}      alt="shaman"      className={`button class-icon`} onClick={void(0)} />
-                    <img src={Warlock}     alt="warlock"     className={`button class-icon`} onClick={void(0)} />
-                    <img src={Warrior}     alt="warrior"     className={`button class-icon`} onClick={void(0)} />
-                    <img src={Neutral}     alt="neutral"     className={`button class-icon`} onClick={void(0)} />
+                    <img src={DemonHunter} alt="demonhunter" className={`button class-icon ${this.props.filters.deckClass.includes("DEMONHUNTER") && "chosen"}`} onClick={() => this.props.setToggledFilter("filterClass", "DEMONHUNTER")} />
+                    <img src={Druid}       alt="druid"       className={`button class-icon ${this.props.filters.deckClass.includes("DRUID") && "chosen"}`}       onClick={() => this.props.setToggledFilter("filterClass", "DRUID")}/>
+                    <img src={Hunter}      alt="hunter"      className={`button class-icon ${this.props.filters.deckClass.includes("HUNTER") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "HUNTER")}/>
+                    <img src={Mage}        alt="mage"        className={`button class-icon ${this.props.filters.deckClass.includes("MAGE") && "chosen"}`}        onClick={() => this.props.setToggledFilter("filterClass", "MAGE")}/>
+                    <img src={Paladin}     alt="paladin"     className={`button class-icon ${this.props.filters.deckClass.includes("PALADIN") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "PALADIN")}/>
+                    <img src={Priest}      alt="priest"      className={`button class-icon ${this.props.filters.deckClass.includes("PRIEST") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "PRIEST")}/>
+                    <img src={Rogue}       alt="rogue"       className={`button class-icon ${this.props.filters.deckClass.includes("ROGUE") && "chosen"}`}       onClick={() => this.props.setToggledFilter("filterClass", "ROGUE")}/>
+                    <img src={Shaman}      alt="shaman"      className={`button class-icon ${this.props.filters.deckClass.includes("SHAMAN") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "SHAMAN")}/>
+                    <img src={Warlock}     alt="warlock"     className={`button class-icon ${this.props.filters.deckClass.includes("WARLOCK") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARLOCK")}/>
+                    <img src={Warrior}     alt="warrior"     className={`button class-icon ${this.props.filters.deckClass.includes("WARRIOR") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARRIOR")}/>
+                    <img src={Neutral}     alt="neutral"     className={`button class-icon ${this.props.filters.deckClass.includes("NEUTRAL") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "NEUTRAL")}/>
                 </div>
             </aside>
         );

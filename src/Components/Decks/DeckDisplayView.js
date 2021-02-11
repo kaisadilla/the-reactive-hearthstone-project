@@ -28,23 +28,6 @@ class DeckDisplayView extends React.Component {
             deckName: evt.target.value,
         })
     }
-
-    componentDidMount () {
-        this.props.setParentState({
-            deckCards: [
-                "AT_001",
-                "AT_002",
-                "AT_002",
-                "AT_009",
-                "AT_003",
-                "AT_005",
-                "AT_012",
-                "AT_003",
-                "AT_005",
-                "AT_021",
-            ]
-        })
-    }
     
     render () {
         return (
@@ -58,8 +41,8 @@ class DeckDisplayView extends React.Component {
                     </div>
                 </div>
                 <div className="deck-actions">
-                    <button className="deck-save">Save</button>
-                    <button className="deck-save-exit">Save and exit</button>
+                    <button className="deck-save" onClick={this.props.saveDeck}>Save</button>
+                    <button className="deck-save-exit" onClick={this.props.saveDeckAndExit}>Save and exit</button>
                     <span className="deck-card-count">{this.props.parentState.deckCards.length} / 30</span>
                 </div>
                 <div className={`deck-cards ${this.props.deckDropBorder ? "display-border" : ""} ${this.state.displayWarning ? "display-warning" : ""}`} ref={this.deckCards}>

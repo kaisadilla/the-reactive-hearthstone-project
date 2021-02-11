@@ -696,6 +696,7 @@ main {
     background-color: $secondary-color;
     border: 1px solid $secondary-color-dark3;
     border-radius: 5px;
+    margin: 10px;
 }
 
 .deck-list {
@@ -733,7 +734,7 @@ main {
                 $spread: 15%; // the extent of the transition. 0% will produce a hard border.
     
                 position: absolute;
-                width: calc(100% - 530px - #{$border-width} - 1px);
+                width: calc(100% - 530px - #{$border-width} - 20px);
                 max-width: 800px;
                 height: $height;
                 background: linear-gradient(120deg, #333, #333 $threshold, transparent $threshold + $spread, transparent);
@@ -749,6 +750,10 @@ main {
                 &.WARLOCK     { background: linear-gradient(105deg, #5318a3, #5318a3 $threshold, transparent $threshold + $spread, transparent); }
                 &.WARRIOR     { background: linear-gradient(105deg, #8f0000, #8f0000 $threshold, transparent $threshold + $spread, transparent); }
                 
+                &:hover {
+                    background-color: #ffb00d64;
+                    outline: 6px solid $secondary-color;
+                }
             }
             .caption {
                 display: block;
@@ -768,7 +773,8 @@ main {
 
             &:hover {
                 cursor: pointer;
-                background-color: #690801;
+                background-color: #a30b00;
+                outline: 5px solid #ff0000;
             }
 
             span {
@@ -846,9 +852,10 @@ main {
     > .deck-cards {
         width: 235px;
         margin: 10px 0 20px 33px;
-        min-height: calc(100vh - 200px);
+        min-height: calc(100vh - 220px);
         max-height: 500px;
         transition: background-color 1.2s ease-out;
+        scrollbar-color: red;
 
         &.display-border {
             outline: 2px dashed $primary-color-light2;
@@ -1042,6 +1049,11 @@ main {
     }
 }
 
+.draggable {
+    &:hover {
+        cursor: grab;
+    }
+}
 
 .no-scroll {
     overflow: hidden;

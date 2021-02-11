@@ -4,6 +4,7 @@ import HsDB from '../Logic/HsDB';
 
 class DeckToken extends React.Component {
 
+    //TODO: This has a stupid mage so I don't forget to add a notification later. Probably.
     purgeDeckToHell () {
         HsDB.deleteDeck(this.props.deck.id);
     }

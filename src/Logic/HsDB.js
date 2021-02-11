@@ -54,24 +54,26 @@ class HsDB {
 
     static async updateDeck (id, deck) {
         return new Promise(async (resolve, reject) => {
-            const deck = (await HsDB._openDeckStore()).get(id);
-            deck.name = "Trigger";
-            resolve(true); //TODO: This
+            const deckStore = await HsDB._openDeckStore();
+            const req = unwrap(deckStore.get(id));
+            req.onsuccess = evt => {
+                let storedDeck = evt.target.result;
+
+                if (storedDeck === undefined) {
+                    resolve(false);
+                    return;
+                }
+
+                if ("name" in deck) storedDeck.name = deck.name;
+                if ("class" in deck) storedDeck.class = deck.class;
+                if ("cards" in deck) storedDeck.cards = deck.cards;
+                let reqUpdate = deckStore.put(storedDeck);
+    
+                reqUpdate.onsuccess = evt => console.log(`Deck of id ${id} updated with ${deck}`);
+                resolve(true); //TODO: This
+            }
         });
     }
-
-    /*static updateDeckxxx (id, data) {
-        let deckStore = Database._openDeckStore();
-        let req = deckStore.get(id);
-        req.onsuccess = evt => {
-            let deck = evt.target.result;
-            if ("name" in data) deck.name = data.name;
-            if ("cards" in data) deck.cards = data.cards;
-            let reqUpdate = deckStore.put(deck);
-
-            reqUpdate.onsuccess = evt => console.log(`Deck of id ${id} updated with ${data}`);
-        }
-    }*/
 
     static async deleteDeck (id) {
         return new Promise(async (resolve, reject) => {

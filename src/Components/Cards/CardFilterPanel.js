@@ -27,26 +27,37 @@ class CardFilterPanel extends React.Component {
         }
         return displayOptions;
     }
+    renderClassFilter () {
+        let classFilter;
+        if (!this.props.disableClassFilter) {
+            classFilter = (
+                <div>
+                    <span className="section">Classes</span>
+                    <div className="class-buttons" id="class-buttons">
+                        <img src={DemonHunter} alt="demonhunter" className={`button class-icon ${this.props.filters.cardClass.includes("DEMONHUNTER") && "chosen"}`} onClick={() => this.props.setToggledFilter("filterClass", "DEMONHUNTER")} />
+                        <img src={Druid}       alt="druid"       className={`button class-icon ${this.props.filters.cardClass.includes("DRUID") && "chosen"}`}       onClick={() => this.props.setToggledFilter("filterClass", "DRUID")}/>
+                        <img src={Hunter}      alt="hunter"      className={`button class-icon ${this.props.filters.cardClass.includes("HUNTER") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "HUNTER")}/>
+                        <img src={Mage}        alt="mage"        className={`button class-icon ${this.props.filters.cardClass.includes("MAGE") && "chosen"}`}        onClick={() => this.props.setToggledFilter("filterClass", "MAGE")}/>
+                        <img src={Paladin}     alt="paladin"     className={`button class-icon ${this.props.filters.cardClass.includes("PALADIN") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "PALADIN")}/>
+                        <img src={Priest}      alt="priest"      className={`button class-icon ${this.props.filters.cardClass.includes("PRIEST") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "PRIEST")}/>
+                        <img src={Rogue}       alt="rogue"       className={`button class-icon ${this.props.filters.cardClass.includes("ROGUE") && "chosen"}`}       onClick={() => this.props.setToggledFilter("filterClass", "ROGUE")}/>
+                        <img src={Shaman}      alt="shaman"      className={`button class-icon ${this.props.filters.cardClass.includes("SHAMAN") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "SHAMAN")}/>
+                        <img src={Warlock}     alt="warlock"     className={`button class-icon ${this.props.filters.cardClass.includes("WARLOCK") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARLOCK")}/>
+                        <img src={Warrior}     alt="warrior"     className={`button class-icon ${this.props.filters.cardClass.includes("WARRIOR") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARRIOR")}/>
+                        <img src={Neutral}     alt="neutral"     className={`button class-icon ${this.props.filters.cardClass.includes("NEUTRAL") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "NEUTRAL")}/>
+                    </div>
+                </div>
+            );
+        }
+        return classFilter;
+    }
 
     render () {
         return (
             <aside className="aside-tools">
                 <span className="title">Cards</span>
                 {this.renderDisplayOptions()}
-                <span className="section">Classes</span>
-                <div className="class-buttons" id="class-buttons">
-                    <img src={DemonHunter} alt="demonhunter" className={`button class-icon ${this.props.filters.cardClass.includes("DEMONHUNTER") && "chosen"}`} onClick={() => this.props.setToggledFilter("filterClass", "DEMONHUNTER")} />
-                    <img src={Druid}       alt="druid"       className={`button class-icon ${this.props.filters.cardClass.includes("DRUID") && "chosen"}`}       onClick={() => this.props.setToggledFilter("filterClass", "DRUID")}/>
-                    <img src={Hunter}      alt="hunter"      className={`button class-icon ${this.props.filters.cardClass.includes("HUNTER") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "HUNTER")}/>
-                    <img src={Mage}        alt="mage"        className={`button class-icon ${this.props.filters.cardClass.includes("MAGE") && "chosen"}`}        onClick={() => this.props.setToggledFilter("filterClass", "MAGE")}/>
-                    <img src={Paladin}     alt="paladin"     className={`button class-icon ${this.props.filters.cardClass.includes("PALADIN") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "PALADIN")}/>
-                    <img src={Priest}      alt="priest"      className={`button class-icon ${this.props.filters.cardClass.includes("PRIEST") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "PRIEST")}/>
-                    <img src={Rogue}       alt="rogue"       className={`button class-icon ${this.props.filters.cardClass.includes("ROGUE") && "chosen"}`}       onClick={() => this.props.setToggledFilter("filterClass", "ROGUE")}/>
-                    <img src={Shaman}      alt="shaman"      className={`button class-icon ${this.props.filters.cardClass.includes("SHAMAN") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "SHAMAN")}/>
-                    <img src={Warlock}     alt="warlock"     className={`button class-icon ${this.props.filters.cardClass.includes("WARLOCK") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARLOCK")}/>
-                    <img src={Warrior}     alt="warrior"     className={`button class-icon ${this.props.filters.cardClass.includes("WARRIOR") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARRIOR")}/>
-                    <img src={Neutral}     alt="neutral"     className={`button class-icon ${this.props.filters.cardClass.includes("NEUTRAL") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "NEUTRAL")}/>
-                </div>
+                {this.renderClassFilter()}
                 <span className="section">Cost</span>
                 <div className="cost-buttons" id="cost-buttons">
                     <div className={`button mana-crystal ${this.props.filters.cost.includes(0) && "chosen"}`}  onClick={() => this.props.setToggledFilter("filterCost", 0) }>0 </div>

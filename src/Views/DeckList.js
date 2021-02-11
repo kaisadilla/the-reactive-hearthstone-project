@@ -11,12 +11,14 @@ class DeckList extends React.Component {
         this.openNewDeckForm = this.openNewDeckForm.bind(this);
         this.closeForm = this.closeForm.bind(this);
         this.createDeck = this.createDeck.bind(this);
+        this.setToggledFilter = this.setToggledFilter.bind(this);
         this.updateInterval = undefined;
 
         this.state = {
             dbOpen: false,
             decks: [],
             createDeckForm: false,
+            filterClass: [],
         }
     }
 
@@ -26,7 +28,6 @@ class DeckList extends React.Component {
             dbOpen: true,
         }));
         this.updateInterval = setInterval(() => this.retrieveDecks(this), 200);
-        HsDB.updateDeck(1, {});
     }
 
     componentDidUpdate () {
@@ -43,6 +44,20 @@ class DeckList extends React.Component {
         if (this.state.dbOpen) {
             HsDB.getAllDecks().then(res => thisClass.setState({
                 decks: res,
+            }));
+        }
+    }
+
+    setToggledFilter (filterName, value) {
+        if (this.state[filterName].includes(value)) {
+            let newFilter = this.state[filterName].filter(c => c !== value);
+            this.setState({
+                [filterName]: newFilter
+            });
+        }
+        else {
+            this.setState(prev => ({
+                [filterName]: [...prev[filterName], value]
             }));
         }
     }
@@ -67,9 +82,12 @@ class DeckList extends React.Component {
     }
 
     render() {
+        let filters = {
+            deckClass: this.filterClass,
+        }
         return (
             <div>
-                <DeckFilterPanel />
+                <DeckFilterPanel setToggledFilter={this.setToggledFilter} filters={filters} />
                 <main className="left-aside">
                     <button className="action-btn" onClick={this.openNewDeckForm}>New deck</button>
                     <DeckContainerList decks={this.state.decks} />

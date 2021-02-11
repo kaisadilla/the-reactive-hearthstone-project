@@ -53,9 +53,12 @@ class DeckViewer extends React.Component {
     componentDidUpdate () {
         if (this.state.dbOpen && !this.state.deck) {
             let deckId = parseInt(window.location.pathname.split("/").pop());
-            HsDB.getDeckById(deckId).then(res => this.setState({
-                deck: res,
-            }));
+            HsDB.getDeckById(deckId).then(res => {
+                this.setState({
+                    deck: res,
+                    filterClass: ["NEUTRAL", res.class]
+                })
+            });
         }
         if (this.state.deck) {
             document.title = `${this.state.deck.name} - the Hearthstone project`;
@@ -121,11 +124,16 @@ class DeckViewer extends React.Component {
     }
 
     saveDeck () {
-        //HsDB.
+        HsDB.updateDeck(this.state.deck.id, {
+            name: this.state.deckName,
+            class: this.state.deckClass,
+            cards: this.state.deckCards,
+        })
     }
 
     saveDeckAndExit() {
         this.saveDeck();
+        this.props.history.push(`/decks`);
     }
 
     render () {
@@ -141,8 +149,11 @@ class DeckViewer extends React.Component {
         return (
             <div>
                 <CardFilterPanel
-                    displayMode="list" filters={filters}
-                    setToggledFilter={this.setToggledFilter} setParentState={this.setState}
+                    displayMode="list"
+                    disableClassFilter="true"
+                    filters={filters}
+                    setToggledFilter={this.setToggledFilter}
+                    setParentState={this.setState}
                 />
                 <main className="left-aside right-aside">
                     {this.state.dragDeckToEliminate && <DeckCardDeleteArea removeCard={this.removeCard} />}
@@ -156,7 +167,10 @@ class DeckViewer extends React.Component {
                         setParentState={this.setState}
                         displayDeleteArea={this.displayDeleteArea}
                         addCard={this.tryAddCard}
-                        deckDropBorder={this.state.deckDropBorder}/>
+                        deckDropBorder={this.state.deckDropBorder}
+                        saveDeck={this.saveDeck}
+                        saveDeckAndExit={this.saveDeckAndExit}
+                    />
                 }
             </div>
         );

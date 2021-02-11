@@ -15,7 +15,7 @@ class CardShowcaseDraggable extends React.Component {
     render () {
         let card = this.state.card;
         return (
-            <a className="gallery-card-item" draggable="true" onDragStart={evt => this._dragGalleryCard(evt, card["id"])} onDragEnd={this._dragGalleryCardEnd}>
+            <a className="gallery-card-item draggable" draggable="true" onDragStart={evt => this._dragGalleryCard(evt, card["id"])} onDragEnd={this._dragGalleryCardEnd}>
                 <img className={`card-showcase ${card["type"] === "HERO" && "hero-pos"}`} src={`https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${card["id"]}.png`} />
             </a>
         );
