@@ -18,7 +18,7 @@ class App extends React.Component {
     constructor () {
         super();
         this.URL_CARD_COLLECTIBLE = "https://api.hearthstonejson.com/v1/73652/enUS/cards.collectible.json";
-        this.URL_EXPANSIONS = "https://raw.githubusercontent.com/kaisadilla/the-hearthstone-project/main/assets/json/expansions.json";
+        this.URL_EXPANSIONS = "https://raw.githubusercontent.com/kaisadilla/the-reactive-hearthstone-project/master/public/json/expansions.json";
 
         this.state = {
             dataReady: false,

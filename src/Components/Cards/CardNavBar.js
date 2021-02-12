@@ -18,7 +18,7 @@ class CardNavBar extends React.Component {
                 <div className="filter-exp">
                     <select id="exp-menu" onChange={evt => this.props.setParentState({chosenExp: evt.target.value})} defaultValue="default">
                         <option value="null"> -- Choose an expansion -- </option>
-                        <option value="all"> (todas las cartas) </option>
+                        {this.props.allowAllOption && <option value="all"> (todas las cartas) </option>}
                         {expansions}
                     </select>
                 </div>

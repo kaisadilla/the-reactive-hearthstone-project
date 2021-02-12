@@ -157,7 +157,7 @@ class DeckViewer extends React.Component {
                 />
                 <main className="left-aside right-aside">
                     {this.state.dragDeckToEliminate && <DeckCardDeleteArea removeCard={this.removeCard} />}
-                    <CardNavBar setParentState={this.setState} />
+                    <CardNavBar setParentState={this.setState} allowAllOption="true" />
                     <CardContainerGallery chosenExp={this.state.chosenExp} filters={filters} useDraggable="true" displayDeckDropBorder={this.displayDeckDropBorder} />
                 </main>
                 {this.state.deck &&
