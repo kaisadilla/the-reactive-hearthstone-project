@@ -12,10 +12,10 @@ class DeckList extends React.Component {
         this.closeForm = this.closeForm.bind(this);
         this.createDeck = this.createDeck.bind(this);
         this.setToggledFilter = this.setToggledFilter.bind(this);
+        this.retrieveDecks = this.retrieveDecks.bind(this);
         this.updateInterval = undefined;
 
         this.state = {
-            dbOpen: false,
             decks: [],
             createDeckForm: false,
             filterClass: [],
@@ -24,25 +24,16 @@ class DeckList extends React.Component {
 
     componentDidMount () {
         document.title = "My decks – the Hearthstone project";
-        HsDB.openDatabase().then(() => this.setState({
-            dbOpen: true,
-        }));
-        this.updateInterval = setInterval(() => this.retrieveDecks(this), 200);
-    }
-
-    componentDidUpdate () {
-        /*if (this.state.dbOpen && this.state.decks.length === 0) {
-            retrieveDecks(this);
-        }*/
+        this.updateInterval = setInterval(this.retrieveDecks, 200);
     }
 
     componentWillUnmount () {
         clearInterval(this.updateInterval);
     }
 
-    retrieveDecks (thisClass) {
-        if (this.state.dbOpen) {
-            HsDB.getAllDecks().then(res => thisClass.setState({
+    retrieveDecks () {
+        if (typeof HsDB.db != "undefined") {
+            HsDB.getAllDecks().then(res => this.setState({
                 decks: res,
             }));
         }
@@ -83,7 +74,7 @@ class DeckList extends React.Component {
 
     render() {
         let filters = {
-            deckClass: this.filterClass,
+            deckClass: this.state.filterClass,
         }
         return (
             <div>

@@ -12,6 +12,7 @@ import NavBar from "./Components/NavBar";
 import HsData from "./Logic/HsData";
 import CardPage from './Views/CardPage';
 import DeckViewer from './Views/DeckViewer';
+import HsDB from './Logic/HsDB';
 
 class App extends React.Component {
     constructor () {
@@ -40,12 +41,15 @@ class App extends React.Component {
                 console.log("Resource loaded: expansions");
                 this._checkLoaded();
             });
+        HsDB.openDatabase().then(() => {
+            this._checkLoaded();
+        });
     }
     
     // checks if all the data has been loaded, and sets the flag "dataReady" if it is.
     _checkLoaded () {
         this.setState({
-            dataReady: typeof HsData.collectibleCards != "undefined" && typeof HsData.expansions != "undefined"
+            dataReady: typeof HsData.collectibleCards != "undefined" && typeof HsData.expansions != "undefined" && typeof HsDB.db != "undefined",
         })
     }
 
