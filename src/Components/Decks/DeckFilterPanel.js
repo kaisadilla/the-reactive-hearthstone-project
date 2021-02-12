@@ -29,7 +29,6 @@ class DeckFilterPanel extends React.Component {
                     <img src={Shaman}      alt="shaman"      className={`button class-icon ${this.props.filters.deckClass.includes("SHAMAN") && "chosen"}`}      onClick={() => this.props.setToggledFilter("filterClass", "SHAMAN")}/>
                     <img src={Warlock}     alt="warlock"     className={`button class-icon ${this.props.filters.deckClass.includes("WARLOCK") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARLOCK")}/>
                     <img src={Warrior}     alt="warrior"     className={`button class-icon ${this.props.filters.deckClass.includes("WARRIOR") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "WARRIOR")}/>
-                    <img src={Neutral}     alt="neutral"     className={`button class-icon ${this.props.filters.deckClass.includes("NEUTRAL") && "chosen"}`}     onClick={() => this.props.setToggledFilter("filterClass", "NEUTRAL")}/>
                 </div>
             </aside>
         );

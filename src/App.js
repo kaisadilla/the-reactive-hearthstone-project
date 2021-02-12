@@ -17,7 +17,7 @@ import HsDB from './Logic/HsDB';
 class App extends React.Component {
     constructor () {
         super();
-        this.URL_CARD_COLLECTIBLE = "https://raw.githubusercontent.com/kaisadilla/the-hearthstone-project/main/assets/json/cards.collectible.json";
+        this.URL_CARD_COLLECTIBLE = "https://api.hearthstonejson.com/v1/73652/enUS/cards.collectible.json";
         this.URL_EXPANSIONS = "https://raw.githubusercontent.com/kaisadilla/the-hearthstone-project/main/assets/json/expansions.json";
 
         this.state = {

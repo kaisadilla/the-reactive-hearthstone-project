@@ -81,7 +81,7 @@ class DeckList extends React.Component {
                 <DeckFilterPanel setToggledFilter={this.setToggledFilter} filters={filters} />
                 <main className="left-aside">
                     <button className="action-btn" onClick={this.openNewDeckForm}>New deck</button>
-                    <DeckContainerList decks={this.state.decks} />
+                    <DeckContainerList decks={this.state.decks} filters={filters} />
                 </main>
                 {this.state.createDeckForm && <CreateDeckForm createDeck={this.createDeck} closeForm={this.closeForm} />}
             </div>

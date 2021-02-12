@@ -598,8 +598,8 @@ main.right-aside {
 }
 .deck-list .deck-token .deck-name .tile-fade-out {
   position: absolute;
-  width: calc(100% - 530px - 5px - 20px);
-  max-width: 800px;
+  width: calc(100% - 390px - 5px - 20px);
+  max-width: 725px;
   height: 60px;
   background: linear-gradient(120deg, #333, #333 60%, transparent 75%, transparent);
 }

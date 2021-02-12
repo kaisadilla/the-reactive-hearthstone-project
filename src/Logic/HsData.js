@@ -7,7 +7,12 @@ class HsData {
     }
 
     static getExpSymbol (expId) {
-        return HsData.expansions[expId]["symbol"];
+        if (HsData.expansions[expId] === undefined) {
+            return "unknown";
+        }
+        else {
+            return HsData.expansions[expId]["symbol"];
+        }
     }
 
     static getClassName (className) {

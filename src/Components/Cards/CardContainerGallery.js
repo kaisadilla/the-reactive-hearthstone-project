@@ -13,7 +13,7 @@ class CardContainerGallery extends React.Component {
         const filters = new CardFilters();
 
         for (const card of HsData.collectibleCards) {
-            if ((chosenExp === "all" || card["set"] === chosenExp) && card["text"] !== undefined) {
+            if ((chosenExp === "all" || card["set"] === chosenExp) && card["text"] && card["set"]) {
                 // check every filter
                 if (   filters.checkQuery(this.props.filters.nameQuery, card)
                     && filters.checkClass(this.props.filters.cardClass, card)

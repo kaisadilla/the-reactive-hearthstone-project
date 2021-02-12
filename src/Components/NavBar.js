@@ -8,6 +8,7 @@ class NavBar extends React.Component {
                 <Link className="nav-item title" to="/">the Hearthstone project</Link>
                 <Link className="nav-item" to="/cards">Cards</Link>
                 <Link className="nav-item" to="/decks">My decks</Link>
+                <Link className="nav-item" to="/stores">Stores</Link>
             </nav>
         );
     }
