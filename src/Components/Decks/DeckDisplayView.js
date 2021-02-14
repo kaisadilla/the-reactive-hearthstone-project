@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import HsData from '../../Logic/HsData';
 import CardTokenDraggable from '../CardTokenDraggable';
+import DeckCodeForm from './DeckCodeForm';
 
 class DeckDisplayView extends React.Component {
     constructor (props) {
@@ -9,6 +10,9 @@ class DeckDisplayView extends React.Component {
 
         this.setState = this.setState.bind(this);
         this.updateName = this.updateName.bind(this);
+        this.importCode = this.importCode.bind(this);
+        this.closeForm = this.closeForm.bind(this);
+        this._getDeckCode = this._getDeckCode.bind(this);
         this._dropGalleryCard = this._dropGalleryCard.bind(this);
 
         this.deckCards = React.createRef();
@@ -17,6 +21,7 @@ class DeckDisplayView extends React.Component {
             deckName: props.deck.name,
             deckClass: props.deck.class,
             deckCards: props.deck.cards,
+            deckCodeForm: false,
         })
         this.state = {
             displayWarning: false,
@@ -28,13 +33,27 @@ class DeckDisplayView extends React.Component {
             deckName: evt.target.value,
         })
     }
+
+    importCode (deck) {
+        console.log(deck.cards);
+        this.props.setParentState({
+            deckCards: deck.cards,
+        })
+        this.closeForm();
+    }
+
+    closeForm () {
+        this.setState({
+            deckCodeForm: false,
+        })
+    }
     
     render () {
         return (
             <div className="deck-view" onDrop={this._dropGalleryCard} onDragOver={this._allowDrop}>
                 <div className="deck-hero">
                     <div className="deck-hero-frame">
-                        <img src={`https://art.hearthstonejson.com/v1/512x/${HsData.getHeroImgId(this.props.parentState.deckClass)}.jpg`} />
+                        <img src={`https://art.hearthstonejson.com/v1/512x/${HsData.getClassHeroId(this.props.parentState.deckClass)}.jpg`} />
                         <div className="deck-name">
                             <input type="text" id="deck-name" placeholder="New deck" value={this.props.parentState.deckName} maxLength="20" onChange={this.updateName}/>
                         </div>
@@ -45,16 +64,26 @@ class DeckDisplayView extends React.Component {
                     <button className="deck-save-exit" onClick={this.props.saveDeckAndExit}>Save and exit</button>
                     <span className="deck-card-count">{this.props.parentState.deckCards.length} / 30</span>
                 </div>
+                <div className="deck-code-actions">
+                    <button className="deck-import" onClick={() => this.setState({deckCodeForm: "import"})}><span className="material-icons">system_update_alt</span><span>Import</span></button>
+                    <button className="deck-export" onClick={() => this.setState({deckCodeForm: "export"})}><span className="material-icons">open_in_new</span><span>Export</span></button>
+                </div>
                 <div className={`deck-cards ${this.props.deckDropBorder ? "display-border" : ""} ${this.state.displayWarning ? "display-warning" : ""}`} ref={this.deckCards}>
                     {this._getAllCardElements()}
                 </div>
+                {this.state.deckCodeForm === "export" && <DeckCodeForm mode="export" code={this._getDeckCode()} closeForm={this.closeForm} />}
+                {this.state.deckCodeForm === "import" && <DeckCodeForm mode="import" deckClass={this.props.parentState.deckClass} onImport={this.importCode} closeForm={this.closeForm} />}
             </div>
         );
     }
 
+    _getDeckCode () {
+        return HsData.encodeDeckCode(this.props.parentState.deckClass, this.props.parentState.deckCards);
+    }
+
     _getAllCardElements () {
         let elements = [];
-        let sortedDeck = this._sortedDeck();
+        let sortedDeck = HsData.sortDeck([...this.props.parentState.deckCards]);
         
         let i = 0;
         while (i < sortedDeck.length) {
@@ -67,24 +96,6 @@ class DeckDisplayView extends React.Component {
         }
 
         return elements;
-    }
-
-    _sortedDeck () {
-        let deck = [...this.props.parentState.deckCards];
-        if (deck === undefined) {
-            console.log("wut");
-            return;
-        };
-
-        deck.sort((a, b) => {
-            let cardA = HsData.getCardById(a);
-            let cardB = HsData.getCardById(b);
-            if (cardA["cost"] > cardB["cost"]) return 1;
-            if (cardA["cost"] < cardB["cost"]) return -1;
-            return cardA["name"] > cardB["name"];
-        })
-
-        return deck;
     }
 
     _dropGalleryCard (evt) {

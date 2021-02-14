@@ -39,6 +39,10 @@ $rarity-common: #858585;
 $rarity-rare: #286097;
 $rarity-epic: #674196;
 $rarity-legendary: #99631d;
+$color-import: #c42f24;
+$color-import-outline: #6b0f08;
+$color-export: #229e12;
+$color-export-outline: #0b5c01;
 
 $font-std: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 $font-hearthstone: "Belwe Std Bold", sans-serif;
@@ -577,6 +581,7 @@ main {
         width: $width-class;
         border-right: 1px solid $gray1;
         border-bottom: 1px solid $gray1;
+        padding-left: 5px;
 
         .class-display-icon {
             float: left;
@@ -687,18 +692,27 @@ main {
     }
 }
 
-.action-btn {
+.large-btn {
     font-family: $font-std;
     font-size: 14pt;
     font-weight: $semibold;
-    color: $secondary-color-text;
     padding: 10px 20px;
-    background-color: $secondary-color;
-    border: 1px solid $secondary-color-dark3;
     border-radius: 5px;
     margin: 10px;
-}
 
+    &.btn-action {
+        color: $secondary-color-text;
+        background-color: $secondary-color;
+        border: 1px solid $secondary-color-dark3;
+    }
+
+    &.btn-import {
+        color: $secondary-color-text;
+        background-color: $color-import;
+        border: 1px solid $color-import-outline;
+    }
+    
+}
 .deck-list {
     max-width: 800px;
 
@@ -914,6 +928,48 @@ main {
             }
         }
     }
+
+    > .deck-code-actions {
+        background-color: $secondary-color-dark1;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        button {
+            float: left;
+            border: none;
+            padding: 5px 10px;
+            font-size: 11pt;
+            display: flex;
+            align-items: center;
+            .material-icons {
+                font-size: 15pt;
+                padding-right: 5px;
+            }
+        }
+
+        .deck-import {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            background-color: $color-import;
+            &:hover {
+                z-index: 5;
+                box-shadow: 0 0 0 2px $color-import-outline;
+            }
+        }
+
+        .deck-export {
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background-color: $color-export;
+            &:hover {
+                z-index: 5;
+                box-shadow: 0 0 0 2px $color-export-outline;
+            }
+        }
+    }
 }
 
 .class-icon {
@@ -989,7 +1045,6 @@ main {
             white-space: nowrap;
         }
     }
-
     .button-row {
         width: 100%;
         text-align: right;
@@ -1013,7 +1068,27 @@ main {
                 box-shadow: 0 0 0 2px $secondary-color-dark3;
             }
         }
+        .btn-import {
+            background-color: $color-import;
+            &:hover {
+                box-shadow: 0 0 0 2px $color-import-outline;
+            }
+        }
+        .btn-export {
+            background-color: $color-export;
+            &:hover {
+                box-shadow: 0 0 0 2px $color-export-outline;
+            }
+        }
     }
+
+    .notif {
+        display: block;
+        text-align: right;
+        font-weight: $semibold;
+        color: $color-import-outline;
+        padding: 0 0 5px 0;
+    };
 }
 
 .class-selection {
@@ -1076,4 +1151,10 @@ main {
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.card-hover {
+    position: fixed;
+    background: transparent;
+    z-index: 200;
 }

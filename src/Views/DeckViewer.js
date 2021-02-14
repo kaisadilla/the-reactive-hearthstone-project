@@ -131,7 +131,7 @@ class DeckViewer extends React.Component {
         })
     }
 
-    saveDeckAndExit() {
+    saveDeckAndExit () {
         this.saveDeck();
         this.props.history.push(`/decks`);
     }

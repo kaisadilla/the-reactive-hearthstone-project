@@ -14,7 +14,7 @@ class DeckToken extends React.Component {
         return (
             <div className="deck-token">
                 <a className="deck-name" href={`deck-viewer/${deck.id}`}>
-                    <img className="tile" src={`https://art.hearthstonejson.com/v1/512x/${HsData.getHeroImgId(deck.class)}.jpg`} />
+                    <img className="tile" src={`https://art.hearthstonejson.com/v1/512x/${HsData.getClassHeroId(deck.class)}.jpg`} />
                     <span className={`tile-fade-out ${deck.class}`}></span>
                     <span className="caption">{deck.name}</span>
                 </a>

@@ -13,6 +13,7 @@ import HsData from "./Logic/HsData";
 import CardPage from './Views/CardPage';
 import DeckViewer from './Views/DeckViewer';
 import HsDB from './Logic/HsDB';
+import MousePos from './Logic/MouseTracker';
 
 class App extends React.Component {
     constructor () {
@@ -44,6 +45,7 @@ class App extends React.Component {
         HsDB.openDatabase().then(() => {
             this._checkLoaded();
         });
+        MousePos.trackMousePos();
     }
     
     // checks if all the data has been loaded, and sets the flag "dataReady" if it is.

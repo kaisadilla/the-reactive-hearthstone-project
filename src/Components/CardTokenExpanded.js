@@ -1,5 +1,6 @@
 import React from 'react';
 import HsData from '../Logic/HsData';
+import useMousePos from "../Logic/MouseTracker";
 
 import DemonHunter from "../img/class-demonhunter.png";
 import Druid from "../img/class-druid.png";
@@ -12,9 +13,17 @@ import Shaman from "../img/class-shaman.png";
 import Warlock from "../img/class-warlock.png";
 import Warrior from "../img/class-warrior.png";
 import Neutral from "../img/class-neutral.png";
+import CardHoverDisplay from './Cards/CardHoverDisplay';
 
 class CardTokenExpanded extends React.Component {
-    state = {  }
+    constructor () {
+        super();
+
+        this.setDisplayShowcase = this.setDisplayShowcase.bind(this);
+        this.state = {
+            displayShowcase: false,
+        }
+    }
 
     getClassIcon (className) {
         switch (className) {
@@ -32,6 +41,15 @@ class CardTokenExpanded extends React.Component {
         }
     }
 
+    setDisplayShowcase (val) {
+        //const {x, y} = useMousePos();
+
+        this.setState({
+            displayShowcase: val,
+            pos: {top: "50px", left: "20px"},
+        });
+    }
+
     render() {
         let card = HsData.getCardById(this.props.cardId);
         // the card description comes "pre-rendered" in the Json (it includes <b>html tags</b>), so we'll need to set it "dangerously". I'd never do this in a real app.
@@ -39,7 +57,7 @@ class CardTokenExpanded extends React.Component {
             <a className="list-card-item" href={`card-info/${card["id"]}`} target="_blank">
                 <div className="card-token">
                     <div className={`card-cost rarity-${card["rarity"].toLowerCase()}`}>{card["cost"]}</div>
-                    <div className="card-name">
+                    <div className="card-name" onMouseEnter={() => this.setDisplayShowcase(true)} onMouseLeave={() => this.setDisplayShowcase(false)}>
                         <img className="tile" src={`https://art.hearthstonejson.com/v1/tiles/${card["id"]}.png`} />
                         <span className="tile-fade-out"></span>
                         <span className="caption">{card["name"]}</span>
@@ -57,6 +75,7 @@ class CardTokenExpanded extends React.Component {
                         <span title={HsData.stripTags(card["text"])} dangerouslySetInnerHTML={{__html: HsData.normalizeCardText(card["text"])}}></span>
                     </div>
                 </div>
+                {this.state.displayShowcase && <CardHoverDisplay cardId={card["id"]} position={this.state.pos} />}
             </a>
         );
     }

@@ -16,7 +16,7 @@ class CreateDeckForm extends React.Component {
     constructor () {
         super();
         this.updateName = this.updateName.bind(this);
-        this.createDeck = this.createDeck.bind(this)
+        this.createDeck = this.createDeck.bind(this);
 
         this.nameField = React.createRef();
 

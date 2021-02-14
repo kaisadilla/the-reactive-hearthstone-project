@@ -4,20 +4,21 @@ import DeckContainerList from '../Components/Decks/DeckContainerList';
 import DeckFilterPanel from '../Components/Decks/DeckFilterPanel';
 import HsDB from '../Logic/HsDB';
 import { useHistory } from "react-router-dom";
+import DeckCodeForm from '../Components/Decks/DeckCodeForm';
 
 class DeckList extends React.Component {
     constructor () {
         super();
-        this.openNewDeckForm = this.openNewDeckForm.bind(this);
         this.closeForm = this.closeForm.bind(this);
         this.createDeck = this.createDeck.bind(this);
+        this.importCode = this.importCode.bind(this);
         this.setToggledFilter = this.setToggledFilter.bind(this);
         this.retrieveDecks = this.retrieveDecks.bind(this);
         this.updateInterval = undefined;
 
         this.state = {
             decks: [],
-            createDeckForm: false,
+            deckFormDialog: false,
             filterClass: [],
         }
     }
@@ -52,24 +53,24 @@ class DeckList extends React.Component {
             }));
         }
     }
-
-    openNewDeckForm () {
-        this.setState({
-            createDeckForm: true, 
-        })
-    }
-
     closeForm () {
         this.setState({
-            createDeckForm: false,
+            deckFormDialog: false,
         })
     }
     
     createDeck (deck) {
         this.closeForm();
-        HsDB.insertDeck(deck).then((res) => {
-            this.props.history.push(`/deck-viewer/${res}`)
-        });
+        HsDB.insertDeck(deck).then(res => this.props.history.push(`/deck-viewer/${res}`));
+    }
+
+    importCode (deck) {
+        let dbDeck = {
+            name: "New deck",
+            class: deck.class,
+            cards: deck.cards,
+        }
+        HsDB.insertDeck(dbDeck).then(res => this.props.history.push(`/deck-viewer/${res}`));
     }
 
     render() {
@@ -80,10 +81,12 @@ class DeckList extends React.Component {
             <div>
                 <DeckFilterPanel setToggledFilter={this.setToggledFilter} filters={filters} />
                 <main className="left-aside">
-                    <button className="action-btn" onClick={this.openNewDeckForm}>New deck</button>
+                    <button className="large-btn btn-action" onClick={() => {this.setState({deckFormDialog: "create"})}}>New deck</button>
+                    <button className="large-btn btn-import" onClick={() => {this.setState({deckFormDialog: "import"})}}>Import deck</button>
                     <DeckContainerList decks={this.state.decks} filters={filters} />
                 </main>
-                {this.state.createDeckForm && <CreateDeckForm createDeck={this.createDeck} closeForm={this.closeForm} />}
+                {this.state.deckFormDialog === "create" && <CreateDeckForm createDeck={this.createDeck} closeForm={this.closeForm} />}
+                {this.state.deckFormDialog === "import" && <DeckCodeForm mode="import" onImport={this.importCode} closeForm={this.closeForm} />}
             </div>
         );
     }
