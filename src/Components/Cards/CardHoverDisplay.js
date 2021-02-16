@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import getLanguage from '../../Logic/Language';
 import MousePos from '../../Logic/MouseTracker';
 
 function CardHoverDisplay (props) {
@@ -8,7 +9,7 @@ function CardHoverDisplay (props) {
 
     return (
         <div className="card-hover" style={{top: `${top}px`}}>
-            <img src={`https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${props.cardId}.png`} />
+            <img src={`https://art.hearthstonejson.com/v1/render/latest/${getLanguage()}/256x/${props.cardId}.png`} />
         </div>
     );
 }

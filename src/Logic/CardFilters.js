@@ -1,6 +1,8 @@
+import getLanguage from "../Logic/Language";
+
 class CardFilters {
     checkQuery (query, card) {
-        return card["name"].toLowerCase().includes(query);
+        return card["name"][getLanguage()].toLowerCase().includes(query) || card["text"][getLanguage()].toLowerCase().includes(query);
     }
 
     checkClass (filterClass, card) {

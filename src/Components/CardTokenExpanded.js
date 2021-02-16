@@ -15,6 +15,8 @@ import Warrior from "../img/class-warrior.png";
 import Neutral from "../img/class-neutral.png";
 import CardHoverDisplay from './Cards/CardHoverDisplay';
 
+import getLanguage from "../Logic/Language";
+
 class CardTokenExpanded extends React.Component {
     constructor () {
         super();
@@ -52,6 +54,7 @@ class CardTokenExpanded extends React.Component {
 
     render() {
         let card = HsData.getCardById(this.props.cardId);
+        let lang = getLanguage();
         // the card description comes "pre-rendered" in the Json (it includes <b>html tags</b>), so we'll need to set it "dangerously". I'd never do this in a real app.
         return (
             <a className="list-card-item" href={`card-info/${card["id"]}`} target="_blank">
@@ -60,7 +63,7 @@ class CardTokenExpanded extends React.Component {
                     <div className="card-name" onMouseEnter={() => this.setDisplayShowcase(true)} onMouseLeave={() => this.setDisplayShowcase(false)}>
                         <img className="tile" src={`https://art.hearthstonejson.com/v1/tiles/${card["id"]}.png`} />
                         <span className="tile-fade-out"></span>
-                        <span className="caption">{card["name"]}</span>
+                        <span className="caption">{card["name"][lang]}</span>
                     </div>
                     <div className="card-stats">
                         {card["type"] === "MINION" ? <div className="card-atk">{card["attack"]}</div> : <div className="card-void"></div>}
@@ -72,7 +75,7 @@ class CardTokenExpanded extends React.Component {
                         <span className="class-label">{HsData.getClassName(card["cardClass"])}</span>
                     </div>
                     <div className="card-desc">
-                        <span title={HsData.stripTags(card["text"])} dangerouslySetInnerHTML={{__html: HsData.normalizeCardText(card["text"])}}></span>
+                        <span title={HsData.stripTags(card["text"][lang])} dangerouslySetInnerHTML={{__html: HsData.normalizeCardText(card["text"][lang])}}></span>
                     </div>
                 </div>
                 {this.state.displayShowcase && <CardHoverDisplay cardId={card["id"]} position={this.state.pos} />}

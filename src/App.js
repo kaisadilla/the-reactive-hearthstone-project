@@ -18,9 +18,12 @@ import MousePos from './Logic/MouseTracker';
 class App extends React.Component {
     constructor () {
         super();
-        this.URL_CARD_COLLECTIBLE = "https://api.hearthstonejson.com/v1/73652/enUS/cards.collectible.json";
+        //this.URL_CARD_COLLECTIBLE = "https://api.hearthstonejson.com/v1/73652/enUS/cards.collectible.json";
+        this.URL_CARD_COLLECTIBLE = "https://api.hearthstonejson.com/v1/73652/all/cards.collectible.json";
         this.URL_EXPANSIONS = "https://raw.githubusercontent.com/kaisadilla/the-reactive-hearthstone-project/master/public/json/expansions.json";
 
+        this.forceUpdate = this.forceUpdate.bind(this);
+        
         this.state = {
             dataReady: false,
         }
@@ -60,7 +63,7 @@ class App extends React.Component {
             return (
                 <div className="App">
                     <Router>
-                        <NavBar />
+                        <NavBar forceGlobalUpdate={this.forceUpdate} />
                         <div className="page-content">
                             <Switch>
                                 <Route path="/cards" component={CardList} />

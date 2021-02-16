@@ -147,6 +147,81 @@ body {
             padding-right: 20px;
         }
     }
+
+    .dropdown-toggle {
+        background-color: $primary-color-light1;
+        border: none;
+        border-radius: 5px;
+        padding: 4px 10px 7px 10px;
+        font-weight: $semibold;
+        color: $secondary-color-light4;
+        font-family: $font-std;
+        font-size: 12pt;
+        margin-top: 9px;
+
+        &.open {
+            background-color: $primary-color-light3;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: $primary-color-light2;
+        }
+
+        &:active {
+            outline: none;
+        }
+    }
+
+    .dropdown-container {
+        position: relative;
+        float: right;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        width: 260px;
+        left: -85px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 8px $primary-color-dark2;
+        div {
+            height: 32px;
+            padding: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $secondary-color;
+            color: $text-color-dark;
+
+            &:first-child {
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            &:last-child {
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            &:hover {
+                cursor: pointer;
+                background-color: $secondary-color-dark1;
+            }
+            &.selected {
+                font-weight: $semibold;
+                background-color: $secondary-color-dark2;
+            }
+
+            img {
+                height: 18px;
+                width: 27px;
+                object-fit: stretch;
+                outline: 1px solid $secondary-color-dark3;
+            }
+            span {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
 }
 
 main {
@@ -542,6 +617,9 @@ main {
             @include cardfy();
             line-height: $height - 1;
             padding-left: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
     .card-stats {
@@ -700,16 +778,30 @@ main {
     border-radius: 5px;
     margin: 10px;
 
+    &:hover {
+        cursor: pointer;
+    }
+
     &.btn-action {
         color: $secondary-color-text;
         background-color: $secondary-color;
         border: 1px solid $secondary-color-dark3;
+
+        &:hover {
+            color: $text-color-bright;
+            background-color: $secondary-color-dark3;
+        }
     }
 
     &.btn-import {
-        color: $secondary-color-text;
+        color: #3b0703;
         background-color: $color-import;
         border: 1px solid $color-import-outline;
+
+        &:hover {
+            color: $text-color-bright;
+            background-color: $color-import-outline;
+        }
     }
     
 }
@@ -1157,4 +1249,10 @@ main {
     position: fixed;
     background: transparent;
     z-index: 200;
+}
+
+option {
+    &:hover {
+        color: red;
+    }
 }

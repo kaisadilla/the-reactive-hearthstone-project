@@ -1,5 +1,6 @@
 import React from 'react';
 import HsData from '../../Logic/HsData';
+import getLanguage from "../../Logic/Language";
 
 import DemonHunter from "../../img/class-demonhunter.png";
 import Druid from "../../img/class-druid.png";
@@ -175,10 +176,11 @@ class CardDataPanel extends React.Component {
 
     render () {
         let card = this.props.card;
+        let lang = getLanguage();
 
         return (
             <aside className="aside-tools">
-                <span className="title">{card["name"]}</span>
+                <span className="title">{card["name"][lang]}</span>
                 <span className="section">Card</span>
                 <div className="display-card">
                     <img
@@ -210,7 +212,7 @@ class CardDataPanel extends React.Component {
                 }
                 { this.getHtmlAttack() } { this.getHtmlHealth() }
                 <div className="info">
-                    <span dangerouslySetInnerHTML={{__html: HsData.normalizeCardText(card["text"])}}></span>
+                    <span dangerouslySetInnerHTML={{__html: HsData.normalizeCardText(card["text"][lang])}}></span>
                 </div>
                 <div className="legend-info">
                     <span className="legend">Rarity</span>
@@ -225,7 +227,7 @@ class CardDataPanel extends React.Component {
                     <span className="value">{card["artist"]}</span>
                 </div>
                 <div className="info flavor">
-                    <span>{card["flavor"]}</span>
+                    <span>{card["flavor"][lang]}</span>
                 </div>
                 { card["type"] === "MINION" && this.getCreatureSounds() }
                 { card["type"] === "HERO" && this.getHeroSounds() }

@@ -1,6 +1,8 @@
 import React from 'react';
 import HsData from '../Logic/HsData';
 
+import getLanguage from "../Logic/Language";
+
 class CardTokenDraggable extends React.Component {
     constructor (props) {
         super();
@@ -19,13 +21,14 @@ class CardTokenDraggable extends React.Component {
 
     render () {
         let card = this.state.card;
+        let lang = getLanguage();
         return (
             <div className="card-token-reduced draggable" draggable="true" onDragStart={evt => this._dragDeckCard(evt, card["id"])} onDragEnd={this._dragDeckCardEnd}>
                 <div className={`card-cost rarity-${card["rarity"].toLowerCase()}`}>{card["cost"]}</div>
                 <div className="card-name">
                     <img className="tile" src={`https://art.hearthstonejson.com/v1/tiles/${card["id"]}.png`} />
                     <span className="tile-fade-out"></span>
-                    <span className="caption">{card["name"]}</span>
+                    <span className="caption">{card["name"][lang]}</span>
                 </div>
                 {(this.props.count == 1 && card["rarity"] === "LEGENDARY") && <div className="card-amount">★</div>}
                 {this.props.count > 1 && <div className="card-amount">{this.props.count <= 9 ? this.props.count : "9+"}</div>}

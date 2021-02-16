@@ -3,6 +3,7 @@ import CardContainerGallery from '../Components/Cards/CardContainerGallery';
 import CardFilterPanel from '../Components/Cards/CardFilterPanel';
 import CardNavBar from '../Components/Cards/CardNavBar';
 import CreateDeckForm from '../Components/CreateDeckForm';
+import AutoLoadForm from '../Components/Decks/AutoLoadForm';
 import DeckCardDeleteArea from '../Components/Decks/DeckCardDeleteArea';
 import DeckDisplayView from '../Components/Decks/DeckDisplayView';
 import HsData from '../Logic/HsData';
@@ -23,8 +24,15 @@ class DeckViewer extends React.Component {
         this.removeCard = this.removeCard.bind(this);
         this.saveDeck = this.saveDeck.bind(this);
         this.saveDeckAndExit = this.saveDeckAndExit.bind(this);
+        this._autoSave = this._autoSave.bind(this);
+        this._autoLoad = this._autoLoad.bind(this);
+        this.loadBackup = this.loadBackup.bind(this);
+        this.closeBackupForm = this.closeBackupForm.bind(this);
+        this.autoSaveInterval = undefined;
 
         this.state = {
+            allowAutoSave: false,
+            showAutoSaveImport: false,
             display: "list",
             chosenExp: "null",
             nameQuery: "",
@@ -43,11 +51,24 @@ class DeckViewer extends React.Component {
         this.setState = this.setState.bind(this);
     }
 
+    get deckBackupKey () {
+        return `deck-backup-${this.state.deck["id"]}`;
+    }
+
     componentDidMount () {
         document.title = "Deck viewer – the Hearthstone project";
         HsDB.openDatabase().then(() => this.setState({
             dbOpen: true,
         }));
+        this.autoSaveInterval = setInterval(this._autoSave, 1000);
+    }
+
+    componentWillUnmount () {
+        clearInterval(this.autoSaveInterval);
+    }
+
+    compareArrays (a, b) {
+        return a.length === b.length && a.every((val, i) => val === b[i]);
     }
 
     componentDidUpdate () {
@@ -57,7 +78,9 @@ class DeckViewer extends React.Component {
                 this.setState({
                     deck: res,
                     filterClass: ["NEUTRAL", res.class]
-                })
+                });
+
+                this._autoLoad();
             });
         }
         if (this.state.deck) {
@@ -129,11 +152,44 @@ class DeckViewer extends React.Component {
             class: this.state.deckClass,
             cards: this.state.deckCards,
         })
+        sessionStorage.setItem("deck-backup", null);
     }
 
     saveDeckAndExit () {
         this.saveDeck();
         this.props.history.push(`/decks`);
+    }
+
+    _autoSave () {
+        if (this.state.allowAutoSave) {
+            sessionStorage.setItem(this.deckBackupKey, JSON.stringify(this.state.deckCards));
+            console.log("Deck backup saved!");
+        }
+    }
+
+    _autoLoad () {
+        let currentSave = JSON.parse(sessionStorage.getItem(this.deckBackupKey));
+        if (currentSave && !this.compareArrays(this.state.deckCards, currentSave)) {
+            this.setState({showAutoSaveImport: true});
+        }
+        else {
+            this.setState({allowAutoSave: true});
+        }
+    }
+
+    loadBackup () {
+        let currentSave = JSON.parse(sessionStorage.getItem(this.deckBackupKey));
+        this.setState({
+            deckCards: currentSave,
+        })
+        this.closeBackupForm();
+    }
+    
+    closeBackupForm () {
+        this.setState({
+            showAutoSaveImport: false,
+            allowAutoSave: true,
+        })
     }
 
     render () {
@@ -172,6 +228,7 @@ class DeckViewer extends React.Component {
                         saveDeckAndExit={this.saveDeckAndExit}
                     />
                 }
+                {this.state.showAutoSaveImport && <AutoLoadForm loadBackup={this.loadBackup} discardBackup={this.closeBackupForm} />}
             </div>
         );
     }

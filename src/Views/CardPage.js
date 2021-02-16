@@ -1,6 +1,7 @@
 import React from 'react';
 import CardDataPanel from '../Components/Cards/CardDataPanel';
 import HsData from '../Logic/HsData';
+import getLanguage from '../Logic/Language';
 
 class CardPage extends React.Component {
     constructor () {
@@ -13,7 +14,7 @@ class CardPage extends React.Component {
     }
 
     componentDidMount () {
-        document.title = `${this.state.card["name"]} – the Hearthstone project`;
+        document.title = `${this.state.card["name"][getLanguage()]} – the Hearthstone project`;
     }
 
     render () {
