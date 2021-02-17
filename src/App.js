@@ -14,6 +14,7 @@ import CardPage from './Views/CardPage';
 import DeckViewer from './Views/DeckViewer';
 import HsDB from './Logic/HsDB';
 import MousePos from './Logic/MouseTracker';
+import Stores from './Views/Stores';
 
 class App extends React.Component {
     constructor () {
@@ -70,6 +71,7 @@ class App extends React.Component {
                                 <Route path="/card-info" component={CardPage} />
                                 <Route path="/decks" component={DeckList} />
                                 <Route path="/deck-viewer" component={DeckViewer} />
+                                <Route path="/stores" component={Stores} />
                             </Switch>
                         </div>
                     </Router>

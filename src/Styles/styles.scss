@@ -226,7 +226,7 @@ body {
 
 main {
     margin-top: $navbar-height;
-    height: calc(100vh - #{$navbar-height} - 20px);
+    //height: calc(100vh - #{$navbar-height} - 20px);
     padding: 10px 20px;
 
     &.left-aside {
@@ -236,13 +236,63 @@ main {
     &.right-aside {
         margin-right: 300px;
     }
+
+    &.bottom-aside {
+        margin-bottom: 300px;
+    }
+}
+
+.aside-chart {
+    position: fixed;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    height: 300px;
+    width: calc(100% - 602px);
+    background-color: $secondary-color-light2;
+    margin-left: 300px;
+    margin-right: 300px;
+
+    .mana-chart {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+
+        .legend {
+            width: 120px;
+            background-color: $secondary-color-light3;
+            padding: 10px;
+            border-radius: 10px;
+
+            .entry {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 5px;
+                .color {
+                    display: block;
+                    width: 24px;
+                    min-width: 24px;
+                    height: 24px;
+                    border: 1px solid black;
+                }
+                .label {
+                    padding-left: 10px;
+                    width: 100%;
+                    color: $primary-color-dark2;
+                }
+            }
+        }
+    }
 }
 
 .aside-tools {
     background-color: $secondary-color;
 
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     bottom: 0;
     left: 0;
     overflow-x: hidden;
@@ -897,7 +947,7 @@ main {
     background-color: $primary-color-dark2;
 
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     bottom: 0;
     right: 0;
     overflow-x: hidden;
@@ -1200,7 +1250,7 @@ main {
     margin-right: 300px;
     z-index: 10;
 
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 150px - 300px);
     width: calc(100% - 650px);
 
     background: $secondary-color-light1;
@@ -1212,7 +1262,7 @@ main {
         font-weight: $semibold;
         font-size: 28pt;
         display: block;
-        margin-top: calc(((100vh - 150px) / 2) - 28pt);
+        margin-top: calc(((100vh - 150px - 300px) / 2) - 28pt);
     }
 }
 

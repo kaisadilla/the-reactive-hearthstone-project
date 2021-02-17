@@ -1,0 +1,16 @@
+JavaScript -> of course
+Eventos -> plenty
+Formularios -> (will be on Stores)
+Modificación del DOM -> (old project)
+Drag & drop -> deck editor
+cookies -> language
+localStorage -> (will be on Stores)
+sessionStorage -> auto save deck
+indedxedDB -> decks
+PDF -> ???
+Google Maps -> (will be on Stores / Leaflet)
+Multimedia -> audio
+JQuery -> (old project)
+Ajax -> none, fetch > ajax
+Angular -> React
+additional -> react-vis, idb (async indexedDB), varint (not used, remove), deckstrings (deck codes)

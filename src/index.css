@@ -133,7 +133,6 @@ body {
 
 main {
   margin-top: 50px;
-  height: calc(100vh - 50px - 20px);
   padding: 10px 20px;
 }
 main.left-aside {
@@ -142,11 +141,57 @@ main.left-aside {
 main.right-aside {
   margin-right: 300px;
 }
+main.bottom-aside {
+  margin-bottom: 300px;
+}
+
+.aside-chart {
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  height: 300px;
+  width: calc(100% - 602px);
+  background-color: #fada7e;
+  margin-left: 300px;
+  margin-right: 300px;
+}
+.aside-chart .mana-chart {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+.aside-chart .mana-chart .legend {
+  width: 120px;
+  background-color: #fae69d;
+  padding: 10px;
+  border-radius: 10px;
+}
+.aside-chart .mana-chart .legend .entry {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+.aside-chart .mana-chart .legend .entry .color {
+  display: block;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  border: 1px solid black;
+}
+.aside-chart .mana-chart .legend .entry .label {
+  padding-left: 10px;
+  width: 100%;
+  color: #1d1209;
+}
 
 .aside-tools {
   background-color: #ffb00d;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   bottom: 0;
   left: 0;
   overflow-x: hidden;
@@ -758,7 +803,7 @@ main.right-aside {
   border: 1px solid black;
   background-color: #1d1209;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   bottom: 0;
   right: 0;
   overflow-x: hidden;
@@ -1028,7 +1073,7 @@ main.right-aside {
   margin-top: 50px;
   margin-right: 300px;
   z-index: 10;
-  min-height: calc(100vh - 150px);
+  min-height: calc(100vh - 150px - 300px);
   width: calc(100% - 650px);
   background: #facd5f;
   text-align: center;
@@ -1039,7 +1084,7 @@ main.right-aside {
   font-weight: 600;
   font-size: 28pt;
   display: block;
-  margin-top: calc(((100vh - 150px) / 2) - 28pt);
+  margin-top: calc(((100vh - 150px - 300px) / 2) - 28pt);
 }
 
 .draggable:hover {

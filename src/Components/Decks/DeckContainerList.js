@@ -7,7 +7,7 @@ class DeckContainerList extends React.Component {
         const decks = [];
 
         for (const deck of this.props.decks) {
-            if (this.props.filters.deckClass.length === 0 || this.props.filters.deckClass.includes(deck.class)) {
+            if (!this.props.filters || this.props.filters.deckClass.length === 0 || this.props.filters.deckClass.includes(deck.class)) {
                 decks.push(<DeckToken deck={deck} key={deck.id}/>);
             }
         }
@@ -15,10 +15,10 @@ class DeckContainerList extends React.Component {
     }
 
     render () {
-        let decks = this.getAllDeckElements();
         return (
             <div className="deck-list">
-                {decks}
+                <h1>Decks containing this card:</h1>
+                {this.getAllDeckElements()}
             </div>
         );
     }

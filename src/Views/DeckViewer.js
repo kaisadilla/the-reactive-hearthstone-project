@@ -1,4 +1,5 @@
 import React from 'react';
+import CardChart from '../Components/CardChart';
 import CardContainerGallery from '../Components/Cards/CardContainerGallery';
 import CardFilterPanel from '../Components/Cards/CardFilterPanel';
 import CardNavBar from '../Components/Cards/CardNavBar';
@@ -163,7 +164,6 @@ class DeckViewer extends React.Component {
     _autoSave () {
         if (this.state.allowAutoSave) {
             sessionStorage.setItem(this.deckBackupKey, JSON.stringify(this.state.deckCards));
-            console.log("Deck backup saved!");
         }
     }
 
@@ -211,7 +211,7 @@ class DeckViewer extends React.Component {
                     setToggledFilter={this.setToggledFilter}
                     setParentState={this.setState}
                 />
-                <main className="left-aside right-aside">
+                <main className="left-aside right-aside bottom-aside">
                     {this.state.dragDeckToEliminate && <DeckCardDeleteArea removeCard={this.removeCard} />}
                     <CardNavBar setParentState={this.setState} allowAllOption="true" />
                     <CardContainerGallery chosenExp={this.state.chosenExp} filters={filters} useDraggable="true" displayDeckDropBorder={this.displayDeckDropBorder} />
@@ -228,6 +228,9 @@ class DeckViewer extends React.Component {
                         saveDeckAndExit={this.saveDeckAndExit}
                     />
                 }
+                <aside className="aside-chart">
+                    <CardChart width={500} height={290} cards={this.state.deckCards} />
+                </aside>
                 {this.state.showAutoSaveImport && <AutoLoadForm loadBackup={this.loadBackup} discardBackup={this.closeBackupForm} />}
             </div>
         );
