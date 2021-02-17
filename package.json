@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.6.3",
     "deckstrings": "^2.1.0",
     "idb": "^6.0.0",
+    "jspdf": "^2.3.0",
     "leaflet": "^1.7.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

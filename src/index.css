@@ -947,6 +947,15 @@ main.bottom-aside {
   z-index: 5;
   box-shadow: 0 0 0 2px #0b5c01;
 }
+.deck-view > .deck-code-actions .deck-pdf {
+  border-radius: 5px;
+  background-color: #694429;
+  margin-left: 10px;
+}
+.deck-view > .deck-code-actions .deck-pdf:hover {
+  z-index: 5;
+  box-shadow: 0 0 0 2px #1d1209;
+}
 
 .class-icon {
   width: 32px;

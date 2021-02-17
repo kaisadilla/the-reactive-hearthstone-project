@@ -1111,6 +1111,16 @@ main {
                 box-shadow: 0 0 0 2px $color-export-outline;
             }
         }
+
+        .deck-pdf {
+            border-radius: 5px;
+            background-color: $primary-color-light1;
+            margin-left: 10px;
+            &:hover {
+                z-index: 5;
+                box-shadow: 0 0 0 2px $primary-color-dark2;
+            }
+        }
     }
 }
 

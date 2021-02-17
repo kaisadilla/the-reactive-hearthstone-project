@@ -1,6 +1,8 @@
+import jsPDF from 'jspdf';
 import React from 'react';
 import ReactDOM from "react-dom";
 import HsData from '../../Logic/HsData';
+import getLanguage from '../../Logic/Language';
 import CardTokenDraggable from '../CardTokenDraggable';
 import DeckCodeForm from './DeckCodeForm';
 
@@ -12,6 +14,7 @@ class DeckDisplayView extends React.Component {
         this.updateName = this.updateName.bind(this);
         this.importCode = this.importCode.bind(this);
         this.closeForm = this.closeForm.bind(this);
+        this._getDeckPdf = this._getDeckPdf.bind(this);
         this._getDeckCode = this._getDeckCode.bind(this);
         this._dropGalleryCard = this._dropGalleryCard.bind(this);
 
@@ -67,14 +70,24 @@ class DeckDisplayView extends React.Component {
                 <div className="deck-code-actions">
                     <button className="deck-import" onClick={() => this.setState({deckCodeForm: "import"})}><span className="material-icons">system_update_alt</span><span>Import</span></button>
                     <button className="deck-export" onClick={() => this.setState({deckCodeForm: "export"})}><span className="material-icons">open_in_new</span><span>Export</span></button>
+                    {/*<button className="deck-pdf" onClick={this._getDeckPdf}><span className="material-icons">picture_as_pdf</span><span>PDF</span></button>*/}
                 </div>
-                <div className={`deck-cards ${this.props.deckDropBorder ? "display-border" : ""} ${this.state.displayWarning ? "display-warning" : ""}`} ref={this.deckCards}>
+                <div id="testi"  className={`deck-cards ${this.props.deckDropBorder ? "display-border" : ""} ${this.state.displayWarning ? "display-warning" : ""}`} ref={this.deckCards}>
                     {this._getAllCardElements()}
                 </div>
                 {this.state.deckCodeForm === "export" && <DeckCodeForm mode="export" code={this._getDeckCode()} closeForm={this.closeForm} />}
                 {this.state.deckCodeForm === "import" && <DeckCodeForm mode="import" deckClass={this.props.parentState.deckClass} onImport={this.importCode} closeForm={this.closeForm} />}
             </div>
         );
+    }
+
+    // I've invested 30 seconds in this. TODO: Actually do this.
+    _getDeckPdf () {
+        const doc = new jsPDF();
+        doc.setFontSize(12);
+        doc.html(document.querySelector("#testi").innerHTML, {
+            callback: doc => doc.save(),
+        });
     }
 
     _getDeckCode () {
