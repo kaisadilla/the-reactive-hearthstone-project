@@ -76,12 +76,17 @@ class DeckViewer extends React.Component {
         if (this.state.dbOpen && !this.state.deck) {
             let deckId = parseInt(window.location.pathname.split("/").pop());
             HsDB.getDeckById(deckId).then(res => {
-                this.setState({
-                    deck: res,
-                    filterClass: ["NEUTRAL", res.class]
-                });
-
-                this._autoLoad();
+                if (res == null) {
+                    this.props.history.push(`/decks`);
+                }
+                else {
+                    this.setState({
+                        deck: res,
+                        filterClass: ["NEUTRAL", res.class]
+                    });
+    
+                    this._autoLoad();
+                }
             });
         }
         if (this.state.deck) {

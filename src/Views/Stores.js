@@ -1,28 +1,59 @@
 import React from 'react';
-import { CircularGridLines, LabelSeries, LineSeries, VerticalBarSeries, VerticalGridLines, XAxis, XYPlot, YAxis } from 'react-vis';
+import { MapConsumer, MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import L from "leaflet";
+//import 'leaflet/dist/leaflet.css';
+//import enUS from "../img/lang/enUS.png";
+import markerIcon from "../img/marker-icon.png";
+import markerShadow from "../img/marker-shadow.png";
 
-class Stores extends React.Component {
-    render () {
-        const data = [
-            {x: "Kevin", y: 35},
-            {x: "Wrw", y: 6},
-            {x: "afds", y: 41},
-            {x: "shf", y: 22},
-            {x: "shfahsh", y: 15},
-            {x: "faf", y: 15},
-            {x: "gsgs", y: 21},
-            {x: "gsgs", y: 33},
-        ]
-        return (
-            <XYPlot xType="ordinal" width={800} height={500} yDomain={[0, 50]}>
-                <VerticalBarSeries data={data} />
-                <XAxis />
-                <YAxis />
-                <LabelSeries data={data.map(o => {return {...o, label: o.y.toString()}})}/>
-                <VerticalGridLines width={800} height={500} tickValues={[5, 10, 15, 20]}/>
-            </XYPlot>
-        );
-    }
+const icon = L.icon({
+    iconSize: [25, 41],
+    iconAnchor: [10, 41],
+    popupAnchor: [2, -40],
+    iconUrl: markerIcon,
+    shadowUrl: markerShadow
+});
+
+function Stores () {
+
+    return (
+        <main>
+            <MapContainer className="store-map" center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false} click={() => console.log("f")}>
+                <TileLayer
+                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker position={[51.505, -0.09]}>
+                    <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                </Marker>
+                <MapConsumer>
+                    {
+                        map => {
+                            // wtf is happening here
+                            let lastClick = Date.now();
+                            map.on("click", e => {
+                                console.log("last:     " + lastClick);
+                                console.log("now - 20: " + ((Date.now()) - 20));
+                                console.log("comparison: " + lastClick > ((Date.now()) - 20));
+                                lastClick = Date.now();
+                                return;
+                                if ((Date.now() - 2000) > lastClick) {
+                                    lastClick = Date.now();
+                                    console.log("clickk");
+                                    /*console.log(e.latlng);
+                                    const {lat, lng} = e.latlng;
+                                    L.marker([lat, lng], { icon: icon }).addTo(map);*/
+                                }
+                            });
+                            return null;
+                        }
+                    }
+                </MapConsumer>
+            </MapContainer>
+        </main>
+    );
 }
 
 export default Stores;
