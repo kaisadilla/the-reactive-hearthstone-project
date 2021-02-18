@@ -9,6 +9,7 @@ import DeckCardDeleteArea from '../Components/Decks/DeckCardDeleteArea';
 import DeckDisplayView from '../Components/Decks/DeckDisplayView';
 import HsData from '../Logic/HsData';
 import HsDB from '../Logic/HsDB';
+import MousePos from "../Logic/MouseTracker";
 
 class DeckViewer extends React.Component {
     constructor () {
@@ -27,6 +28,7 @@ class DeckViewer extends React.Component {
         this.saveDeckAndExit = this.saveDeckAndExit.bind(this);
         this._autoSave = this._autoSave.bind(this);
         this._autoLoad = this._autoLoad.bind(this);
+        this._toggleGraph = this._toggleGraph.bind(this);
         this.loadBackup = this.loadBackup.bind(this);
         this.closeBackupForm = this.closeBackupForm.bind(this);
         this.autoSaveInterval = undefined;
@@ -34,6 +36,7 @@ class DeckViewer extends React.Component {
         this.state = {
             allowAutoSave: false,
             showAutoSaveImport: false,
+            collapseGraph: true,
             display: "list",
             chosenExp: "null",
             nameQuery: "",
@@ -182,6 +185,14 @@ class DeckViewer extends React.Component {
         }
     }
 
+    _toggleGraph () {
+        this.setState(prevState => {
+            return {
+                collapseGraph: !prevState.collapseGraph,
+            }
+        })
+    }
+
     loadBackup () {
         let currentSave = JSON.parse(sessionStorage.getItem(this.deckBackupKey));
         this.setState({
@@ -233,8 +244,9 @@ class DeckViewer extends React.Component {
                         saveDeckAndExit={this.saveDeckAndExit}
                     />
                 }
-                <aside className="aside-chart">
-                    <CardChart width={500} height={290} cards={this.state.deckCards} />
+                <aside className={`aside-chart ${this.state.collapseGraph ? "collapsed" : ""}`} onDoubleClick={this._toggleGraph}>
+                    <span className="drag-up">Double click to show or hide graph.</span>
+                    <CardChart width={500} height={285} cards={this.state.deckCards} />
                 </aside>
                 {this.state.showAutoSaveImport && <AutoLoadForm loadBackup={this.loadBackup} discardBackup={this.closeBackupForm} />}
             </div>

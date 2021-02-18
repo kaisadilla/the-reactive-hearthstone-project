@@ -153,8 +153,24 @@ main.bottom-aside {
   height: 300px;
   width: calc(100% - 602px);
   background-color: #fada7e;
+  border-top: 5px solid #492609;
   margin-left: 300px;
   margin-right: 300px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: height 0.66s ease-in-out;
+}
+.aside-chart.collapsed {
+  height: 25px;
+}
+.aside-chart .drag-up {
+  text-align: center;
+  display: block;
+  width: 100%;
+  color: #492609;
+  font-weight: 600;
 }
 .aside-chart .mana-chart {
   margin: 0 auto;

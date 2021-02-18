@@ -13,7 +13,8 @@ class Stores extends React.Component {
         this.closeForm = this.closeForm.bind(this);
         this.addStore = this.addStore.bind(this);
         this.deleteStore = this.deleteStore.bind(this);
-
+        
+        // when state.coordsToAdd has a value, a form opens to add a store.
         this.state = {
             coordsToAdd: null,
             stores: [],
@@ -63,9 +64,9 @@ class Stores extends React.Component {
     }
 
     render() {
-        const markers = [];
-        const nativeMarkers = [];
-        const storeTokens = []
+        const markers = []; // the markers that will appear in the map.
+        const nativeMarkers = []; // markers in leaflet's format (rather than react-leaflet's) to calculate the position and zoom of the map.
+        const storeTokens = []; // the entries on the store panel (left panel).
 
         for (let store of this.state.stores) {
             console.log(store);
@@ -85,6 +86,7 @@ class Stores extends React.Component {
             storeTokens.push(<StoreToken store={store} onClick={() => this.map.setView(store.coords, 16)} />)
         }
 
+        // a group containing all native leaflet markers.
         const group = new L.featureGroup(nativeMarkers);
 
         return (
@@ -103,6 +105,7 @@ class Stores extends React.Component {
                         {markers}
                         <MapConsumer>
                             {
+                                // this function determines the behavior of the map.
                                 m => {
                                     this.map = m;
                                     this.map.doubleClickZoom.disable(); // leaflet zooms automatically when you double click.

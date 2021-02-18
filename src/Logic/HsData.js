@@ -5,14 +5,24 @@ class HsData {
     static collectibleCards;
     static expansions;
 
+    /**
+     * Returns the card from the collection with the given id.
+     */
     static getCardById (id) {
         return HsData.collectibleCards.find(e => e.id === id);
     }
 
+    /**
+     * Returns the card from the collection with the given dbfId. This is different than the regular id and is only used for deck codes.
+     */
     static getCardByDbf (dbf) {
         return HsData.collectibleCards.find(e => e.dbfId === dbf);
     }
 
+    /**
+     * Returns the "symbol" (abbreviation) for the expansion given, or "unknown" if the symbol is not found.
+     * @param {*} expId the INTERNAL_ID of the expansion.
+     */
     static getExpSymbol (expId) {
         if (HsData.expansions[expId] === undefined) {
             return "unknown";
@@ -22,6 +32,10 @@ class HsData {
         }
     }
 
+    /**
+     * Returns the name of the class.
+     * @param {*} className the INTERNAL_ID of the class.
+     */
     static getClassName (className) {
         if (className === "DEMONHUNTER") return "Demon hunter";
         if (className === "DRUID")       return "Druid";
@@ -107,6 +121,11 @@ class HsData {
         }
     }
 
+    /**
+     * Given a deck string, returns a deck object with the INTERNAL_NAME of the class and an array of ids representing the cards.
+     * Returns null if the deck string is malformed.
+     * @param {*} code The code of the deck.
+     */
     static decodeDeckCode (code) {
         try {
             const prototypeDeck = decode(code);
@@ -127,6 +146,11 @@ class HsData {
         }
     }
 
+    /**
+     * Given the INTERNAL_ID of a class and an array of ids of cards, returns the corresponding deck code.
+     * @param {*} className The INTERNAL_ID of the class.
+     * @param {*} cards An array of card ids.
+     */
     static encodeDeckCode (className, cards) {
         if (!(className && cards)) return;
         const prototypeDeck = {
@@ -151,6 +175,10 @@ class HsData {
         return encode(prototypeDeck);
     }
 
+    /**
+     * Given an array of card ids, returns an array that contains those cards ordered first by cost and then by name.
+     * @param {*} deckToSort An array of card ids.
+     */
     static sortDeck (deckToSort) {
         let deck = deckToSort;
         if (deck === undefined) {
@@ -169,6 +197,9 @@ class HsData {
     }
 
     // TODO: This doesn't work at all.
+    /**
+     * Strips HTML tags from a string.
+     */
     static stripTags (text) {
         if (typeof text === "string") {
             return HsData.normalizeCardText(text).replace("<b>", "").replace("</b>", "").replace(/<[^>]*>/, "");
@@ -178,6 +209,9 @@ class HsData {
         }
     }
     
+    /**
+     * Replaces tokens from a collectible.cards.json text string.
+     */
     static normalizeCardText (text) {
         if (typeof text === "string") {
             return text.replace("$", "").replace("#", "").replace("[x]", "").replace(`'`, `"`);

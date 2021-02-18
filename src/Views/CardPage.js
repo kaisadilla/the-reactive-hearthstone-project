@@ -18,9 +18,7 @@ class CardPage extends React.Component {
 
     componentDidMount () {
         document.title = `${this.state.card["name"][getLanguage()]} – the Hearthstone project`;
-        HsDB.getAllDecks().then(res => this.setState({
-            decks: res,
-        }));
+        // push all the decks that contain this card to state.decksThatContainIt.
         HsDB.getAllDecks().then(res => {
             for (let d of res) {
                 if (d.cards.includes(this.state.card["id"])) {

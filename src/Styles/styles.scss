@@ -247,11 +247,34 @@ main {
     z-index: 1;
     bottom: 0;
     left: 0;
+    
     height: 300px;
     width: calc(100% - 602px);
+    
     background-color: $secondary-color-light2;
+    border-top: 5px solid $primary-color;
+
     margin-left: 300px;
     margin-right: 300px;
+
+    -webkit-user-select: none;  
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    transition: height 0.66s ease-in-out;
+
+    &.collapsed {
+        height: 25px;
+    }
+
+    .drag-up {
+        text-align: center;
+        display: block;
+        width: 100%;
+        color: $primary-color;
+        font-weight: $semibold;
+    }
 
     .mana-chart {
         margin: 0 auto;

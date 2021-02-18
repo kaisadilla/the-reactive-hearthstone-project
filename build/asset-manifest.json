@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.627863d1.chunk.css",
-    "main.js": "/static/js/main.f1873069.chunk.js",
-    "main.js.map": "/static/js/main.f1873069.chunk.js.map",
+    "main.css": "/static/css/main.277313e2.chunk.css",
+    "main.js": "/static/js/main.da96e765.chunk.js",
+    "main.js.map": "/static/js/main.da96e765.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.3f88f89b.js",
     "runtime-main.js.map": "/static/js/runtime-main.3f88f89b.js.map",
     "static/js/2.634ecdb0.chunk.js": "/static/js/2.634ecdb0.chunk.js",
     "static/js/2.634ecdb0.chunk.js.map": "/static/js/2.634ecdb0.chunk.js.map",
-    "static/js/3.07e57c4f.chunk.js": "/static/js/3.07e57c4f.chunk.js",
-    "static/js/3.07e57c4f.chunk.js.map": "/static/js/3.07e57c4f.chunk.js.map",
+    "static/js/3.066eb323.chunk.js": "/static/js/3.066eb323.chunk.js",
+    "static/js/3.066eb323.chunk.js.map": "/static/js/3.066eb323.chunk.js.map",
     "static/js/4.75b3b77e.chunk.js": "/static/js/4.75b3b77e.chunk.js",
     "static/js/4.75b3b77e.chunk.js.map": "/static/js/4.75b3b77e.chunk.js.map",
     "static/js/5.d406644d.chunk.js": "/static/js/5.d406644d.chunk.js",
@@ -16,9 +16,9 @@
     "static/js/6.c5551e2b.chunk.js": "/static/js/6.c5551e2b.chunk.js",
     "static/js/6.c5551e2b.chunk.js.map": "/static/js/6.c5551e2b.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.627863d1.chunk.css.map": "/static/css/main.627863d1.chunk.css.map",
+    "static/css/main.277313e2.chunk.css.map": "/static/css/main.277313e2.chunk.css.map",
     "static/js/2.634ecdb0.chunk.js.LICENSE.txt": "/static/js/2.634ecdb0.chunk.js.LICENSE.txt",
-    "static/js/3.07e57c4f.chunk.js.LICENSE.txt": "/static/js/3.07e57c4f.chunk.js.LICENSE.txt",
+    "static/js/3.066eb323.chunk.js.LICENSE.txt": "/static/js/3.066eb323.chunk.js.LICENSE.txt",
     "static/js/4.75b3b77e.chunk.js.LICENSE.txt": "/static/js/4.75b3b77e.chunk.js.LICENSE.txt",
     "static/js/5.d406644d.chunk.js.LICENSE.txt": "/static/js/5.d406644d.chunk.js.LICENSE.txt",
     "static/media/index.css": "/static/media/mana-crystal.20bbacf7.png",
@@ -37,8 +37,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.3f88f89b.js",
-    "static/js/3.07e57c4f.chunk.js",
-    "static/css/main.627863d1.chunk.css",
-    "static/js/main.f1873069.chunk.js"
+    "static/js/3.066eb323.chunk.js",
+    "static/css/main.277313e2.chunk.css",
+    "static/js/main.da96e765.chunk.js"
   ]
 }

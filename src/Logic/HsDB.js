@@ -7,6 +7,9 @@ class HsDB {
     static VERSION = 1;
     static STORE_NAME = "decks";
 
+    /**
+     * Opens the indexedDB database.
+     */
     static async openDatabase () {
         return new Promise(async (resolve, reject) => {
             HsDB.db = await openDB(HsDB.DB_NAME, HsDB.VERSION, {
@@ -52,6 +55,11 @@ class HsDB {
         })
     }
 
+    /**
+     * Updates the information of the deck with the given id on the database, using only the keys given.
+     * @param {*} id The id of the deck to update.
+     * @param {*} deck an object with the optional keys "name", "class" and "cards".
+     */
     static async updateDeck (id, deck) {
         return new Promise(async (resolve, reject) => {
             const deckStore = await HsDB._openDeckStore();
@@ -75,6 +83,10 @@ class HsDB {
         });
     }
 
+    /**
+     * Deletes the deck with the given id and resolves to "true" when it's done.
+     * @param {*} id The id of the deck to delete.
+     */
     static async deleteDeck (id) {
         return new Promise(async (resolve, reject) => {
             (await HsDB._openDeckStore()).delete(id);
@@ -82,6 +94,10 @@ class HsDB {
         });
     }
 
+    /**
+     * Returns a promise with the indexedDB store for the decks.
+     * @param {*} readMode "readwrite" by default.
+     */
     static async _openDeckStore(readMode = "readwrite") {
         return new Promise(async (resolve, reject) => {
             const deckStore = await HsDB.db.transaction(HsDB.STORE_NAME, readMode).objectStore(HsDB.STORE_NAME);

@@ -40,6 +40,12 @@ class DeckList extends React.Component {
         }
     }
 
+    /**
+     * Toggles a value for the given filter on or off. If the value is present in the given filter, it will be removed.
+     * If it's not, it will be added.
+     * @param {*} filterName The filter in which to add or remove the value.
+     * @param {*} value The value to add or remove.
+     */
     setToggledFilter (filterName, value) {
         if (this.state[filterName].includes(value)) {
             let newFilter = this.state[filterName].filter(c => c !== value);
@@ -53,17 +59,20 @@ class DeckList extends React.Component {
             }));
         }
     }
+
     closeForm () {
         this.setState({
             deckFormDialog: false,
         })
     }
     
+    // creates a deck and redirects the browser to that deck's page.
     createDeck (deck) {
         this.closeForm();
         HsDB.insertDeck(deck).then(res => this.props.history.push(`/deck-viewer/${res}`));
     }
 
+    // creates a deck with the given code and redirects the browser to that deck's page.
     importCode (deck) {
         let dbDeck = {
             name: "New deck",
