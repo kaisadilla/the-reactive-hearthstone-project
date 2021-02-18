@@ -29,7 +29,7 @@ class CardChart extends React.Component {
             return {
                 x: index,
                 y: totalPerCost[index],
-                label: totalPerCost[index] > 0 ? totalPerCost[index] : "",
+                label: totalPerCost[index] > 0 ? totalPerCost[index].toString() : "",
             }
         });
 

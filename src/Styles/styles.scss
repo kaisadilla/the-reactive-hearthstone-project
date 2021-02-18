@@ -1160,13 +1160,24 @@ main {
         min-width: 600px;
         max-width: 900px;
     }
+    &.small-dialog {
+        min-width: 300px;
+        max-width: 300px;
+        width: 300px;
+    }
 
     .field {
         padding: 10px 0;
         display: flex;
         align-items: center;
 
-        > input {
+        label {
+            float: left;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+        input[type=text] {
             background-color: transparent;
             border: none;
             border-bottom: 2px solid $gray3;
@@ -1191,12 +1202,70 @@ main {
                 }
             }
         }
-        > label {
-            float: left;
-            padding-right: 10px;
-            white-space: nowrap;
+
+        input[type=number] {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid $gray3;
+            font-size: 14pt;
+            width: 100%;
+        }
+
+        input[type=color] {
+            border: 3px solid $primary-color;
+            border-radius: 5px;
+            height: 30px;
+            padding: 1px;
+            background-color: $primary-color;
+            outline: none;
+        }
+
+        input[type=time] {
+            font-family: $font-std;
+            font-size: 10pt;
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid $gray3;
+            font-size: 14pt;
+            width: 100%;
+
+            + label {
+                margin-left: 8px;
+            }
+        }
+
+        input[type=checkbox] + label {
+            padding-left: 6px;
         }
     }
+
+    .field-radiogroup {
+        border: 1px solid $primary-color;
+        border-radius: 6px;
+        padding: 5px 12px;
+        width: 120px;
+        
+        .group-name {
+            display: block;
+            font-weight: $semibold;
+            text-align: center;
+        }
+
+        .radio-option {
+            display: block;
+
+            label {
+                padding-left: 6px;
+            }
+
+            input[type=radio] {
+                &:checked + label {
+                    font-weight: $semibold;
+                }
+            }
+        }
+    }
+    
     .button-row {
         width: 100%;
         text-align: right;
@@ -1318,6 +1387,25 @@ option {
 }
 
 .store-map {
-    height: 500px;
-    width: 1000px;
+    height: 75vh;
+    width: 80%;
+    z-index: 1;
+
+    .map-popup {
+        width: 200px;
+        padding: 0;
+
+        span {
+            display: block;
+            padding: 1px 5px;
+        }
+
+        .store-name {
+            padding: 5px;
+            width: calc(100% - 10px);
+            text-align: center;
+            @include cardfy();
+            margin-bottom: 10px;
+        }
+    }
 }
