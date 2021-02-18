@@ -329,7 +329,7 @@ main.bottom-aside {
   cursor: pointer;
 }
 .aside-tools div.class-buttons > .button:not(.chosen), .aside-tools div.cost-buttons > .button:not(.chosen) {
-  opacity: 60%;
+  opacity: 0.6;
 }
 .aside-tools div.display-card {
   width: 100%;
@@ -501,6 +501,7 @@ main.bottom-aside {
   height: inherit;
   width: inherit;
   object-fit: cover;
+  object-position: 6px 0;
 }
 .card-token .card-name .tile-fade-out {
   position: absolute;
@@ -638,6 +639,7 @@ main.bottom-aside {
   height: inherit;
   width: inherit;
   object-fit: cover;
+  object-position: 6px 0;
 }
 .card-token-reduced .card-name .tile-fade-out {
   position: absolute;
@@ -1129,7 +1131,7 @@ main.bottom-aside {
   cursor: pointer;
 }
 .class-selection .class-icon-large:not(.chosen) {
-  opacity: 60%;
+  opacity: 0.6;
 }
 
 .deck-card-delete-area {
@@ -1257,6 +1259,8 @@ option:hover {
   height: 80vh;
   max-height: 750px;
   z-index: 1;
+  border-radius: 20px;
+  border: 3px solid #e18921;
 }
 .store-map .map-popup {
   width: 200px;

@@ -1,10 +1,6 @@
 import React from 'react';
-import { MapConsumer, MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
+import { MapConsumer, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import L from "leaflet";
-//import 'leaflet/dist/leaflet.css';
-//import enUS from "../img/lang/enUS.png";
-import markerIcon from "../img/marker-icon.png";
-import markerShadow from "../img/marker-shadow.png";
 import AddStoreForm from '../Components/AddStoreForm';
 import StoreToken from '../Components/StoreToken';
 
@@ -27,16 +23,24 @@ class Stores extends React.Component {
 
     componentDidMount () {
         this.getAllStores();
+        document.title = "Stores – the Hearthstone project";
     }
 
+    /**
+     * Reads all the stores from the localStorage and returns them.
+     */
     getAllStores () {
         let stores = [];
         for (let key of Object.keys(localStorage)) {
-            stores.push(JSON.parse(localStorage[key]));
+            try {
+                stores.push(JSON.parse(localStorage[key]));
+            }
+            catch (e) {
+                //console.log(e);
+            }
         }
         this.setState({
             stores: stores,
-            mapCenter: this._getCoordsCentroid(stores.map(v => v.coords)),
         }, () => console.log("Stores reloaded"));
     }
 
@@ -58,20 +62,13 @@ class Stores extends React.Component {
         this.getAllStores();
     }
 
-    _getCoordsCentroid (coords) {
-        if (coords.length === 0) return [51.505, -0.09];
-
-        let sumX = coords.map(v => v[0]).reduce((acc, val) => acc + val);
-        let sumY = coords.map(v => v[1]).reduce((acc, val) => acc + val);
-        return [sumX / coords.length, sumY / coords.length];
-    }
-
     render() {
         const markers = [];
         const nativeMarkers = [];
         const storeTokens = []
 
         for (let store of this.state.stores) {
+            console.log(store);
             markers.push(
                 <Marker position={store.coords} key={store.code}>
                     <Popup className="map-popup">
@@ -92,11 +89,11 @@ class Stores extends React.Component {
 
         return (
             <div>
-                <aside class="store-list">
+                <aside className="store-list">
                     <h2>Stores</h2>
                     {storeTokens}
                 </aside>
-                <main class="left-aside">
+                <main className="left-aside">
                     <h3>Double click anywhere in the map to add a store.</h3>
                     <MapContainer className="store-map" center={this.state.mapCenter} zoom={13} scrollWheelZoom click={() => console.log("f")}>
                         <TileLayer
@@ -117,7 +114,6 @@ class Stores extends React.Component {
                                             })
                                         }
                                     });
-                                    //this.map.setView(this.state.mapCenter, 13); // <MapContainer> properties are immutable, so we'll have to change them here.
                                     if (nativeMarkers.length > 0) this.map.fitBounds(group.getBounds()); // zoom in or out the map as much as needed to fit all the markers
                                     return null;
                                 }
@@ -129,8 +125,6 @@ class Stores extends React.Component {
             </div>
         );
     }
-
-    _coco() {return [30, 30]}
 }
 
 export default Stores;

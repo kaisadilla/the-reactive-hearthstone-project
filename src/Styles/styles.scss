@@ -455,7 +455,7 @@ main {
                     cursor: pointer;
                 }
                 &:not(.chosen) {
-                    opacity: 60%;
+                    opacity: 0.6; // MEGA WARNING: If you define this as "60%", it'll work in development but will break in production, just because. It will be changed to 1%.
                 }
                 margin: 0 2px 0 2px;
             }
@@ -649,6 +649,7 @@ main {
             height: inherit;
             width: inherit;
             object-fit: cover;
+            object-position: 6px 0; // some tiles have an offset, so this compensates for it usually.
         }
         .tile-fade-out {
             $threshold: 35%; // the start of the transition from color to image.
@@ -784,6 +785,7 @@ main {
             height: inherit;
             width: inherit;
             object-fit: cover;
+            object-position: 6px 0;
         }
         .tile-fade-out {
             $threshold: 35%; // the start of the transition from color to image.
@@ -1318,7 +1320,7 @@ main {
         cursor: pointer;
 
         &:not(.chosen) {
-            opacity: 60%;
+            opacity: 0.6;
         }
     }
 }
@@ -1439,6 +1441,8 @@ option {
     height: 80vh;
     max-height: 750px;
     z-index: 1;
+    border-radius: 20px;
+    border: 3px solid $secondary-color-dark1;
 
     .map-popup {
         width: 200px;

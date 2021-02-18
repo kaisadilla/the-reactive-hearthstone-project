@@ -31,4 +31,4 @@ Librerías no vistas en clase:
 - idb: Una interfaz para indexedDB que reemplaza las funciones nativas de indexedDB por versiones asíncronas de las mismas.
 - leaflet y react-leaflet: Una librería para uso de mapas y geolocalización. React-leaflet es una interfaz de Leaflet para react.js.
 - react, react-dom, react-router-dom, react-scrips: librerías para react.js.
-- deckstrings: Una pequeña librería que genera códigos en base-64 a partir de los mazos (esto necesita una explicación).
+- deckstrings: Una pequeña librería que genera códigos en base-64 a partir de los mazos (esto necesita explicación).
