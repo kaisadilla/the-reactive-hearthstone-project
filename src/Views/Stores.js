@@ -6,14 +6,17 @@ import L from "leaflet";
 import markerIcon from "../img/marker-icon.png";
 import markerShadow from "../img/marker-shadow.png";
 import AddStoreForm from '../Components/AddStoreForm';
+import StoreToken from '../Components/StoreToken';
 
 class Stores extends React.Component {
     constructor () {
         super();
 
+        this.map = null;
         this.getAllStores = this.getAllStores.bind(this);
         this.closeForm = this.closeForm.bind(this);
         this.addStore = this.addStore.bind(this);
+        this.deleteStore = this.deleteStore.bind(this);
 
         this.state = {
             coordsToAdd: null,
@@ -50,6 +53,11 @@ class Stores extends React.Component {
         this.closeForm();
     }
 
+    deleteStore (code) {
+        localStorage.removeItem(code);
+        this.getAllStores();
+    }
+
     _getCoordsCentroid (coords) {
         if (coords.length === 0) return [51.505, -0.09];
 
@@ -61,6 +69,7 @@ class Stores extends React.Component {
     render() {
         const markers = [];
         const nativeMarkers = [];
+        const storeTokens = []
 
         for (let store of this.state.stores) {
             markers.push(
@@ -71,44 +80,53 @@ class Stores extends React.Component {
                         <span><b>Opened in:</b> {store.opened}</span>
                         <span><b>Type: </b> {store.type}</span>
                         {store.holdsTournaments && <span><i>Holds tournaments.</i></span>}
+                        <div className="store-delete"> <button onClick={() => this.deleteStore(store.code)}>Delete</button> </div>
                     </Popup>
                 </Marker>
             );
             nativeMarkers.push(L.marker(store.coords));
+            storeTokens.push(<StoreToken store={store} onClick={() => this.map.setView(store.coords, 16)} />)
         }
 
         const group = new L.featureGroup(nativeMarkers);
 
         return (
-            <main>
-                <h3>Double click anywhere in the map to add a store.</h3>
-                <MapContainer className="store-map" center={this.state.mapCenter} zoom={13} scrollWheelZoom click={() => console.log("f")}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {markers}
-                    <MapConsumer>
-                        {
-                            map => {
-                                map.doubleClickZoom.disable(); // leaflet zooms automatically when you double click.
-                                map.on("dblclick", e => {
-                                    if (!this.state.coordsToAdd) {
-                                        const {lat, lng} = e.latlng;
-                                        this.setState({
-                                            coordsToAdd: [lat, lng],
-                                        })
-                                    }
-                                });
-                                map.setView(this.state.mapCenter, 13); // <MapContainer> properties are immutable, so we'll have to change them here.
-                                if (nativeMarkers.length > 0) map.fitBounds(group.getBounds()); // zoom in or out the map as much as needed to fit all the markers
-                                return null;
+            <div>
+                <aside class="store-list">
+                    <h2>Stores</h2>
+                    {storeTokens}
+                </aside>
+                <main class="left-aside">
+                    <h3>Double click anywhere in the map to add a store.</h3>
+                    <MapContainer className="store-map" center={this.state.mapCenter} zoom={13} scrollWheelZoom click={() => console.log("f")}>
+                        <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        {markers}
+                        <MapConsumer>
+                            {
+                                m => {
+                                    this.map = m;
+                                    this.map.doubleClickZoom.disable(); // leaflet zooms automatically when you double click.
+                                    this.map.on("dblclick", e => {
+                                        if (!this.state.coordsToAdd) {
+                                            const {lat, lng} = e.latlng;
+                                            this.setState({
+                                                coordsToAdd: [lat, lng],
+                                            })
+                                        }
+                                    });
+                                    //this.map.setView(this.state.mapCenter, 13); // <MapContainer> properties are immutable, so we'll have to change them here.
+                                    if (nativeMarkers.length > 0) this.map.fitBounds(group.getBounds()); // zoom in or out the map as much as needed to fit all the markers
+                                    return null;
+                                }
                             }
-                        }
-                    </MapConsumer>
-                </MapContainer>
-                {this.state.coordsToAdd && <AddStoreForm coords={this.state.coordsToAdd} addStore={this.addStore} closeForm={this.closeForm} />}
-            </main>
+                        </MapConsumer>
+                    </MapContainer>
+                    {this.state.coordsToAdd && <AddStoreForm coords={this.state.coordsToAdd} addStore={this.addStore} closeForm={this.closeForm} />}
+                </main>
+            </div>
         );
     }
 

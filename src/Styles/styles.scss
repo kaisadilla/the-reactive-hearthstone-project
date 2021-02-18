@@ -1386,9 +1386,58 @@ option {
     }
 }
 
+.store-list {
+    $padding: 30px;
+    position: fixed;
+    width: calc(300px - #{$padding * 2});
+    height: calc(100vh - #{$navbar-height});
+    border-right: 1px solid $primary-color;
+    padding: 5px $padding;
+    overflow: auto;
+    
+    scrollbar-width: thin;
+    &::-webkit-scrollbar { 
+        display: none; 
+    }
+
+    h2 {
+        padding-left: 5px;
+    }
+
+    .store-token {
+        width: calc(100% - 4px);
+        height: 64px;
+        border-radius: 6px;
+        margin-bottom: 5px;
+        border: 2px solid $primary-color;
+
+        &:hover {
+            cursor: pointer;
+        }
+    
+        .store-name {
+            display: block;
+            width: 100%;
+            padding: 5px 16px;
+            @include cardfy();
+            font-size: 16pt;
+        }
+
+        .store-loc {
+            display: block;
+            width: calc(100% - 8px);
+            text-align: right;
+            text-shadow: 2px 2px 4px #ffffff60;
+            font-weight: $semibold;
+        }
+    }
+}
+
 .store-map {
-    height: 75vh;
-    width: 80%;
+    width: 100%;
+    max-width: 900px;
+    height: 80vh;
+    max-height: 750px;
     z-index: 1;
 
     .map-popup {
@@ -1398,6 +1447,7 @@ option {
         span {
             display: block;
             padding: 1px 5px;
+            border-radius: 4px;
         }
 
         .store-name {
@@ -1406,6 +1456,24 @@ option {
             text-align: center;
             @include cardfy();
             margin-bottom: 10px;
+        }
+
+        .store-delete {
+            text-align: center;
+            margin-top: 8px;
+
+            button {
+                border: 1px solid $color-import-outline;
+                border-radius: 6px;
+                background: $color-import;
+                color: $text-color-bright;
+                padding: 5px 12px;
+                font-size: 12pt;
+
+                &:hover {
+                    background: $color-import-outline;
+                }
+            }
         }
     }
 }

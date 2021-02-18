@@ -1,16 +1,34 @@
-JavaScript -> of course
-Eventos -> plenty
-Formularios -> (will be on Stores)
-Modificación del DOM -> (old project)
-Drag & drop -> deck editor
-cookies -> language
-localStorage -> (will be on Stores)
-sessionStorage -> auto save deck
-indedxedDB -> decks
-PDF -> ???
-Google Maps -> (will be on Stores / Leaflet)
-Multimedia -> audio
-JQuery -> (old project)
-Ajax -> none, fetch > ajax
-Angular -> React
-additional -> react-vis, idb (async indexedDB), varint (not used, remove), deckstrings (deck codes)
+╔════════════════════════════════════╦═══════════════════════════════════════════════════════════════════════════════════════════╗
+║ Uso de JavaScript                  ║ Sí                                                                                        ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Eventos                            ║ Sí (hover sobre las cartas, click sobre botones, etc)                                     ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Formularios                        ║ Sí (agregar local en "stores", algunos campos de input en algunas interacciones)          ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Modificación del DOM               ║ Sí (en el proyecto anterior que no utiliza react.js, interacciones con reactDOM)          ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Tecnología de arrastrar y soltar   ║ Sí (en la creación de un mazo, para añadir y quitar cartas)                               ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Almacenamiento                     ║ Sí (cookies: idioma, localStorage: para locales, sessionStorage: autoguardado de mazos)   ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ IndexedDB                          ║ Sí (para almacenar los mazos creados)                                                     ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Generación de ficheros PDF         ║ No :(                                                                                     ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Elementos de geolocalización       ║ Sí (leaflet, para ubicar los locales en el mapa y agregar nuevos locales)                 ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Elementos multimedia               ║ Sí (botones de "audio" en la información individual de las cartas)                        ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ jQuery                             ║ Sí (en el proyecto anterior que no utiliza react.js)                                      ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Ajax                               ║ No, uso de la interfaz nativa .fetch() que reemplaza a $.ajax().                          ║
+╠════════════════════════════════════╬═══════════════════════════════════════════════════════════════════════════════════════════╣
+║ Angular                            ║ ~ React                                                                                   ║
+╚════════════════════════════════════╩═══════════════════════════════════════════════════════════════════════════════════════════╝
+
+Librerías no vistas en clase:
+- react-vis: Una librería para generar gráficos, utilizada para mostrar la distribución del coste y tipo de las cartas de un mazo.
+- idb: Una interfaz para indexedDB que reemplaza las funciones nativas de indexedDB por versiones asíncronas de las mismas.
+- leaflet y react-leaflet: Una librería para uso de mapas y geolocalización. React-leaflet es una interfaz de Leaflet para react.js.
+- react, react-dom, react-router-dom, react-scrips: librerías para react.js.
+- deckstrings: Una pequeña librería que genera códigos en base-64 a partir de los mazos (esto necesita una explicación).

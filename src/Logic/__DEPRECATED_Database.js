@@ -1,5 +1,9 @@
-// this class manages the connections with indexeddb
-class Database {
+/*
+ * ESTA CLASE UTILIZA LAS FUNCIONES NATIVAS PARA INDEXEDDB Y == NO SE UTILIZA EN EL PROYECTO ==.
+ * LAS FUNCIONES UTILIZADAS SE ENCUENTRAN EN EL ARCHIVO HsDB.js.
+ * Este archivo está aquí únicamente porque ya que la hice en su momento, pues ahí se queda.
+ */
+class __DEPRECATED_Database {
     static db = undefined;
     static VERSION = 3;
     static STORE_NAME = "decks";
@@ -25,23 +29,6 @@ class Database {
 
         req.onsuccess = event => {
             Database.db = event.target.result;
-            //alert("hearthproj opened!");
-            //let transaction = Database.db.transaction(["testdeck1"], "readwrite");
-            /*Database.addDeck({
-                name: "Mega Warlock",
-                class: "WARLOCK",
-                cards: [
-                    "OG_001", "OG_001", "OG_002", "OG_002", "OG_070", "OG_073", "OG_075", "OG_075", "OG_085"
-                ]
-            });*/
-            //Database.deleteDeck(14);
-            //Database.getDeckById(2);
-            /*Database.updateDeck(4, {
-                name: "Extreme Warlock",
-                cards: ["AT_001", "AT_003"],
-            })*/
-            //Database.getAllDecks();
-            //Database.getDecksByClass("WARRIOR");
         };
 
         req.onupgradeneeded = event => {
