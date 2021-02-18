@@ -242,6 +242,22 @@ main {
     }
 }
 
+.background {
+    background-image: url("/src/img/hearthstone-background.jpg");
+    background-size: 100% calc(100vh - #{$navbar-height});
+    height: calc(100vh - #{$navbar-height} - 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+        display: block;
+        color: $secondary-color;
+        font-size: 48pt;
+        text-shadow: 2px 2px 5px $primary-color;
+    }
+}
+
 .aside-chart {
     position: fixed;
     z-index: 1;
@@ -250,7 +266,7 @@ main {
     
     height: 300px;
     width: calc(100% - 602px);
-    
+
     background-color: $secondary-color-light2;
     border-top: 5px solid $primary-color;
 

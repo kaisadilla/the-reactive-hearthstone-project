@@ -15,6 +15,7 @@ import DeckViewer from './Views/DeckViewer';
 import HsDB from './Logic/HsDB';
 import MousePos from './Logic/MouseTracker';
 import Stores from './Views/Stores';
+import Home from './Views/Home';
 
 class App extends React.Component {
     constructor () {
@@ -67,6 +68,7 @@ class App extends React.Component {
                         <NavBar forceGlobalUpdate={this.forceUpdate} />
                         <div className="page-content">
                             <Switch>
+                                <Route path="/" component={Home} exact />
                                 <Route path="/cards" component={CardList} />
                                 <Route path="/card-info" component={CardPage} />
                                 <Route path="/decks" component={DeckList} />
